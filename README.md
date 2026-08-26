@@ -1,11 +1,11 @@
 # 👋 Hi, I’m Tyler Lindow
 
 **Engineering Advocate**
-📍 San Diego, CA | [Website](https://tlindow.github.io/) | [LinkedIn](https://www.linkedin.com/in/tlindow/)
+📍 San Diego, CA (Looking forward to Seattle, WA! 🌲) | [Website](https://tlindow.github.io/) | [LinkedIn](https://www.linkedin.com/in/tlindow/)
 
-I operate at the intersection of complex systems architecture, developer advocacy, and human learning. In the Intelligence Age, software development is no longer an assembly line of syntax generation; it is an exercise in rigorous reasoning, conceptual depth, and ecosystem building. 
+I'm at the intersection of complex systems architecture, developer advocacy, and human learning. No more code monkeys!
 
-My strength is acting as a "conceptual translator" — removing the cognitive friction developers face when adopting new tools, and bridging the gap between deep technical constraints and cross-functional business outcomes.
+My strength is acting as a "conceptual translator" — removing the cognitive friction developers face at "Hello World!" and making sure everyone gets along 🏳️‍🌈
 
 ---
 
