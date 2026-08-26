@@ -1,6 +1,6 @@
 # 👋 Hi, I’m Tyler Lindow
 
-**Developer Advocate**
+**Engineering Advocate**
 📍 San Diego, CA | [Website](https://tlindow.github.io/) | [LinkedIn](https://www.linkedin.com/in/tlindow/)
 
 I operate at the intersection of complex systems architecture, developer advocacy, and human learning. In the Intelligence Age, software development is no longer an assembly line of syntax generation; it is an exercise in rigorous reasoning, conceptual depth, and ecosystem building. 
