@@ -5,7 +5,7 @@
 
 I'm at the intersection of complex systems architecture, developer advocacy, and human learning. No more code monkeys!
 
-My strength is acting as a "conceptual translator" — removing the cognitive friction developers face at "Hello World!" and making sure everyone gets along 🏳️‍🌈
+My strength is acting as a "conceptual translator" — removing the cognitive friction developers face at '''Hello World!''' and making sure everyone gets along 🏳️‍🌈
 
 ---
 
