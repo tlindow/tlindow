@@ -1,11 +1,13 @@
 # 👋 Hi, I’m Tyler Lindow
 
+[I like my website, here it is](https://tlindow.github.io/) | [Professional Me (LinkedIn)](https://www.linkedin.com/in/tlindow/)
+
 **Engineering Advocate**
-📍 San Diego, CA (Looking forward to Seattle, WA! 🌲) | [Website](https://tlindow.github.io/) | [LinkedIn](https://www.linkedin.com/in/tlindow/)
+📍 San Diego, CA | Looking forward to Seattle, WA! 🌲
 
 I'm at the intersection of complex systems architecture, developer advocacy, and human learning. No more code monkeys!
 
-My strength is acting as a "conceptual translator" — removing the cognitive friction developers face at '''Hello World!''' and making sure everyone gets along 🏳️‍🌈
+My strength is acting as a "conceptual translator" — removing the cognitive friction developers face at `Hello World!` and making sure everyone gets along 🏳️‍🌈
 
 ---
 
@@ -17,11 +19,16 @@ My strength is acting as a "conceptual translator" — removing the cognitive fr
 
 ---
 
-### 🛠️ Technical Toolkit
+### 🛠️ Tools I like
 
-*   **AI & Architecture:** LLMs & RAG, Agentic Coding Frameworks (Cursor, Jules, Antigravity), System Design, Prototyping.
-*   **Core Engineering:** Python, PyTorch, JavaScript, React, Node.js, Flask.
-*   **Cloud & Infrastructure:** Snowflake, AWS, Vercel, SRE Support Methodologies.
+*  **Google:** Google Colab (PyTorch and what not), Antigravity, Gemini
+*  **Vercel** (but sometimes it's too expensive). It least it doesn't feel like I might never finish reading the docs... (AWS 👀) 
+    *  I have mixed feelings about Next.js --> I feel like it injects way too much opinion about the design of the site, but it get's the job done...
+*  **Cursor:** (very expensive, but works really well for coding on-the-go)
+*  **Luma:** > Meetup
+*  **Front-end Frameworks:** I guess we are still using React?
+*  **SQL:** Where would we be without Snowflake (at least within a corporate setting)
+*  **Languages:** I'm pretty good at reading JavaScript/Node.js | I can make something up in Flask/Python when I put my mind to it
 
 ---
 
