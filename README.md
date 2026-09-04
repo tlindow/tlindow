@@ -3,7 +3,7 @@
 [I like my website, here it is](https://tlindow.github.io/) | [Professional Me (LinkedIn)](https://www.linkedin.com/in/tlindow/)
 
 **Engineering Advocate**
-📍 San Diego, CA | Looking forward to Seattle, WA! 🌲
+📍 San Diego, CA | Looking toward to Seattle, WA 🌲
 
 I'm at the intersection of complex systems architecture, developer advocacy, and human learning. No more code monkeys!
 
