@@ -1,0 +1,216 @@
+// ============================================================================
+// EXERCISE: Merchant Settlement & Bank Payout Ledger Contract
+// ============================================================================
+// Domain Problem:
+// You are designing the high-throughput settlement and disbursement interface
+// for a B2B Merchant Financial Platform.
+//
+// Every day, millions of dollars in merchant transactions are aggregated into
+// settlement batches, fee schedules are calculated, rolling reserves are
+// retained, and the net payout is disbursed to merchant bank accounts.
+//
+// 🎯 Learning Objectives:
+// 1. Syntax & Schema Packaging (proto3, package declarations, imports)
+// 2. Exact Monetary Precision (avoiding IEEE-754 floating point pitfalls)
+// 3. Robust Enum Modeling (proto3 zero-value default convention)
+// 4. Hierarchical Ledgering (repeated sub-items, fee deduction breakdowns)
+// 5. Polymorphic Destination Rails (using `oneof` for ACH, FedNow, Wire, Tokenized Bank Accounts)
+// 6. Extensibility & Schema Evolution (field tags 1-15 optimization, `reserved` fields)
+// 7. gRPC Service & Streaming (Unary batch operations + Server-Streaming ledger feeds)
+//
+// 💬 How to Complete This Exercise:
+// Work through the 6 step markers below, writing and refining the proto3 definitions.
+// ============================================================================
+
+syntax = "proto3";
+
+package fintech.settlement.v1;
+
+// Step 1 starter: use Timestamp later for settlement and ledger event audit times.
+import "google/protobuf/timestamp.proto";
+
+
+// ----------------------------------------------------------------------------
+// 1. Monetary Precision
+// ----------------------------------------------------------------------------
+// Challenge: Represent currency values without floating-point precision loss.
+// A settlement batch needs to calculate gross volume, fees, deductions, and net payouts.
+//
+// Goal:
+// Structure a Money message to represent exact amounts (e.g., $1,250.75 USD or ¥10,000 JPY).
+message Money {
+  // ISO 4217 code like "USD" or "JPY".
+  string currency_code = 1;
+  // Whole amount in major currency units (e.g. dollars).
+  int64 units = 2;
+  // Fractional amount in billionths of a unit (e.g. $12.75 => 750000000).
+  int32 nanos = 3;
+  // Note: "= 1", "= 2", "= 3" are field tags for wire encoding and compatibility.
+}
+
+
+// ----------------------------------------------------------------------------
+// 2. Lifecycle Status & Disbursement Rails
+// ----------------------------------------------------------------------------
+// Challenge: Define settlement batch status and payment routing rails.
+//
+// Goal:
+// Define states a settlement batch transitions through and payment rails available.
+// Remember proto3 convention: the first entry must be 0 (UNSPECIFIED).
+enum SettlementStatus {
+  // [STEP 2 EXERCISE]: Define enum values with proto3 zero-value conventions.
+  SETTLEMENT_STATUS_UNSPECIFIED = 0;
+  SETTLEMENT_STATUS_PENDING = 1;
+  SETTLEMENT_STATUS_CALCULATING = 2;
+  SETTLEMENT_STATUS_IN_REVIEW = 3;
+  SETTLEMENT_STATUS_APPROVED_AND_IN_TRANSIT = 4;
+  SETTLEMENT_STATUS_SETTLED = 5;
+  SETTLEMENT_STATUS_FAILED = 6;
+}
+
+enum DisbursementRail {
+  // [STEP 2 EXERCISE]: Define disbursement payment rails.
+  DISBURSEMENT_RAIL_UNSPECIFIED = 0;
+  DISBURSEMENT_RAIL_ACH = 1;
+  DISBURSEMENT_RAIL_WIRE = 2;
+  DISBURSEMENT_RAIL_FEDNOW = 3;
+  DISBURSEMENT_RAIL_RTP = 4;
+  DISBURSEMENT_RAIL_TOKENIZED_BANK_ACCOUNT = 5;
+}
+
+
+// ----------------------------------------------------------------------------
+// 3. Polymorphic Bank Account Destinations
+// ----------------------------------------------------------------------------
+// Challenge: A merchant payout can be routed via:
+// A) Tokenized Bank Account (e.g., Plaid/processor token ID)
+// B) Direct US Routing & Account Numbers (ACH / FedNow)
+// C) International Wire Details (SWIFT / BIC / IBAN)
+//
+// Goal:
+// Use a proto3 `oneof` construct to enforce that exactly one destination is specified.
+message PayoutDestination {
+  // [STEP 3 EXERCISE]: Model mutually exclusive bank destination options.
+  oneof destination {
+    TokenizedAccount tokenized_account = 1;
+    UsBankAccount us_bank_account = 2;
+    InternationalBankAccount international_bank_account = 3;
+  }
+}
+
+message TokenizedAccount {
+  string token_id = 1;
+  string processor_name = 2;
+}
+
+message UsBankAccount {
+  string routing_number = 1;
+  string account_number = 2;
+  string account_holder_name = 3;
+}
+
+message InternationalBankAccount {
+  string iban = 1;
+  string swift_bic = 2;
+  string bank_name = 3;
+  string country_code = 4;
+}
+
+
+// ----------------------------------------------------------------------------
+// 4. Itemized Ledger Line Items & Fee Pricing
+// ----------------------------------------------------------------------------
+// Challenge: A settlement batch contains multiple charge line items, each with:
+// - transaction_id
+// - gross_amount
+// - contractual fee breakdown (basis points fee + fixed per-transaction fee)
+// - dispute/chargeback adjustments
+// - custom merchant reconciliation metadata
+//
+// Goal:
+// Model line items, fee deductions, and arbitrary key-value metadata maps.
+message FeeDeduction {
+  string fee_type = 1; // e.g. "INTERCHANGE", "ASSESSMENT", "PLATFORM_FEE"
+  Money amount = 2;
+  int32 basis_points = 3;
+}
+
+message SettlementLineItem {
+  // [STEP 4 EXERCISE]: Model line items, repeated fees, and merchant metadata map.
+  string transaction_id = 1;
+  Money gross_amount = 2;
+  Money net_amount = 3;
+  repeated FeeDeduction fee_deductions = 4;
+  map<string, string> merchant_metadata = 5;
+  google.protobuf.Timestamp captured_at = 6;
+}
+
+
+// ----------------------------------------------------------------------------
+// 5. The Settlement Batch Aggregate
+// ----------------------------------------------------------------------------
+// Challenge: Assemble the complete settlement batch document.
+// Include batch ID, merchant ID, status, gross/fee/reserve/net money totals,
+// destination bank account, list of line items, timestamps, and schema reservations.
+//
+// Goal:
+// Compose the aggregate message with optimal field numbering and reserved tags.
+message SettlementBatch {
+  // [STEP 5 EXERCISE]: Compose the complete settlement batch message.
+  reserved 8, 15 to 20;
+  reserved "deprecated_routing_code";
+
+  // Hot fields (tags 1-15 encode in 1 byte on the wire)
+  string batch_id = 1;
+  string merchant_id = 2;
+  SettlementStatus status = 3;
+  DisbursementRail disbursement_rail = 4;
+  Money gross_total = 5;
+  Money fee_total = 6;
+  Money net_payout = 7;
+
+  PayoutDestination destination = 9;
+  repeated SettlementLineItem line_items = 10;
+
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp settled_at = 12;
+}
+
+
+// ----------------------------------------------------------------------------
+// 6. gRPC Service Interface
+// ----------------------------------------------------------------------------
+// Challenge: Expose RPCs for:
+// 1. Creating/initiating an idempotent settlement batch (Unary RPC)
+// 2. Streaming real-time ledger event updates as funds clear the rail (Server Streaming RPC)
+//
+// Goal:
+// Define Unary and Server-Streaming service methods.
+message CreateSettlementBatchRequest {
+  string idempotency_key = 1;
+  SettlementBatch batch = 2;
+}
+
+message CreateSettlementBatchResponse {
+  SettlementBatch batch = 1;
+  string status_message = 2;
+}
+
+message StreamLedgerEventsRequest {
+  string merchant_id = 1;
+  google.protobuf.Timestamp since = 2;
+}
+
+message LedgerEvent {
+  string event_id = 1;
+  string batch_id = 2;
+  SettlementStatus previous_status = 3;
+  SettlementStatus new_status = 4;
+  google.protobuf.Timestamp event_time = 5;
+}
+
+service MerchantSettlementService {
+  // [STEP 6 EXERCISE]: Define Unary and Server Streaming RPCs.
+  rpc CreateSettlementBatch(CreateSettlementBatchRequest) returns (CreateSettlementBatchResponse);
+  rpc StreamLedgerEvents(StreamLedgerEventsRequest) returns (stream LedgerEvent);
+}

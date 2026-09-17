@@ -19,6 +19,12 @@ My strength is acting as a "conceptual translator" — removing the cognitive fr
 
 ---
 
+### 🎯 Hands-On Learning Exercises
+
+This repo also hosts my personal technical katas — see [`exercises/`](./exercises/README.md) for Protobuf/gRPC fintech settlement schemas, Next.js App Router architecture, and a real-time collaboration transport-design exercise (polling vs SSE vs WebSockets).
+
+---
+
 ### 🛠️ Tools I like
 
 *  **Google:** Google Colab (PyTorch and what not), Antigravity, Gemini
