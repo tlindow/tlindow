@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>DealRoom Live — Real-Time Collaboration Exercise</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; margin: 2rem; color: #1a1a1a; }
+    h1 { font-size: 1.2rem; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; background: #eee; font-size: 0.8rem; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+    th, td { border: 1px solid #ddd; padding: 6px 10px; text-align: left; font-size: 0.9rem; }
+    th { background: #f7f7f7; }
+    .locked { background: #fff4e5; }
+    #hold { padding: 8px; margin-top: 1rem; display: none; background: #ffe0e0; border: 1px solid #cc0000; }
+    #log { font-family: monospace; font-size: 0.75rem; max-height: 200px; overflow-y: auto; background: #fafafa; border: 1px solid #eee; padding: 8px; margin-top: 1rem; }
+    #presence span { margin-right: 8px; padding: 2px 6px; background: #e5f0ff; border-radius: 3px; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+  <h1>DealRoom Live <span class="badge" id="transport-badge">?</span></h1>
+  <p>Book: $<span id="covered">0</span>M covered, <span id="oversub">0</span>x oversubscribed, spread <span id="spread">0</span>bps</p>
+  <div id="hold"></div>
+  <div id="presence"></div>
+  <table>
+    <thead><tr><th>Investor</th><th>Allocation ($M)</th><th>Lock</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div id="log"></div>
+
+  <script src="client.js"></script>
+</body>
+</html>

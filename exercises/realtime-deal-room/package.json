@@ -1,0 +1,15 @@
+{
+  "name": "realtime-deal-room-exercise",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fintech real-time collaboration exercise: polling vs SSE vs WebSockets",
+  "scripts": {
+    "start:polling": "node server/polling-server.js",
+    "start:sse": "node server/sse-server.js",
+    "start:ws": "node server/websocket-server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  }
+}
