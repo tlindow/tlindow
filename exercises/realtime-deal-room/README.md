@@ -1,84 +1,84 @@
 # Exercise: Real-Time Syndicated Deal Room
 
-## Scenario
+This exercise now follows the same **progressive, fill-in-the-blanks** style as
+`proto-learning`: start from guided scaffolds, complete each step, then compare
+against the full JS reference implementations.
 
-You are building **DealRoom Live**, a collaborative allocation tool used by a
-capital markets syndicate desk during the bookbuild for a new bond/loan
-issuance. About **10 clients** connect to the same deal session at once:
-the lead trader, syndicate desk staff, sales coverage, risk, and compliance.
+## 🎯 Learning Objectives
 
-While the book is being built:
+By the end of this track, you should be able to:
 
-- Traders adjust **allocation amounts** per investor in a shared table.
-- The desk head **locks/unlocks rows** while finalizing tranches.
-- Everyone sees everyone else's **cursor/row focus** ("who's editing what")
-  so two people don't clobber the same investor's allocation.
-- The server pushes **live price/spread ticks** and **order book totals**
-  (e.g., "$1.2B covered, 3.1x oversubscribed") to all participants as new
-  indications of interest arrive from investors.
-- Compliance can post a **hold** on the room (e.g., "MNPI review in
-  progress") that must reach every client almost instantly.
+1. Model a real-time deal-room state machine with **ordered, attributable events**.
+2. Implement **reconnect + replay** logic for short disconnects.
+3. Build a **WebSocket-first** collaboration flow with bidirectional updates.
+4. Read and reason about a **Python backend** implementation.
+5. Connect a **Next.js + TypeScript** client to the same event model.
+6. Explain polling vs SSE vs WebSocket tradeoffs in this finance scenario.
 
-## Requirements
+---
 
-- **Low latency**: allocation edits, locks, and price ticks should appear
-  for other participants with minimal delay — traders are moving real
-  money on this data.
-- **Bidirectional updates**: clients send edits/lock requests to the
-  server; the server both acknowledges those edits *and* independently
-  pushes price ticks, order totals, and compliance holds that no client
-  requested.
-- **Frequent small messages**: cursor/row-focus updates, allocation deltas,
-  price ticks, and presence heartbeats, arriving many times per second
-  across ~10 participants.
-- **Auditability**: every message must be attributable, ordered, and
-  survive a brief client reconnect (e.g., a trader's laptop sleeps) without
-  desyncing the book.
+## 📝 Exercise Breakdown
 
-## Task
+### Step 1: Python backend scaffold (fill in blanks)
 
-Select the best approach to organize communication between clients and the
-server for this scenario (choose from options such as **short/long
-polling**, **SSE (Server-Sent Events) + REST**, and **WebSockets**; you may
-mention other approaches if relevant). Explain your choice and the key
-tradeoffs.
+Open [`exercise_01_python_ws_backend.py`](./exercise_01_python_ws_backend.py)
+and complete each `[STEP X EXERCISE]` marker.
 
-In your explanation, consider:
+- Build room state + append-only event log.
+- Add WebSocket join/snapshot behavior.
+- Apply allocation/lock/presence/hold commands.
+- Implement replay for reconnect (`since` sequence).
 
-- Latency and whether the approach supports **true bidirectional**
-  communication.
-- Server/network efficiency (overhead per message, connection costs) at
-  ~10 concurrent clients, and how that changes if this scales to many
-  simultaneous deal rooms.
-- Operational complexity and scalability considerations (load balancers,
-  sticky sessions, horizontal scaling of stateful connections).
-- Reliability concerns specific to a financial workflow: reconnect
-  behavior, message ordering/idempotency for allocation edits, and
-  backpressure when price ticks arrive faster than a client can render
-  them.
+### Step 2: Next.js + TypeScript client scaffold (fill in blanks)
 
-## What's in this exercise
+Open [`exercise_02_nextjs_typescript_client.tsx`](./exercise_02_nextjs_typescript_client.tsx)
+and complete each `[STEP X EXERCISE]` marker.
 
-This folder has **three working reference implementations** of the same
-deal-room state (allocations, locks, price ticks, presence) so you can
-compare the approaches hands-on instead of purely on paper:
+- Define typed event/snapshot contracts.
+- Connect/disconnect WebSocket safely in a Client Component.
+- Apply event stream updates + replay handling.
+- Send typed room actions to backend.
+
+### Step 3: Compare transport implementations
+
+Use the existing working references in this folder to contrast behavior under the
+same workload:
 
 ```
 server/
-  shared-state.js      # in-memory deal room model shared by all servers
-  polling-server.js    # REST + short polling implementation
-  sse-server.js        # SSE (push) + REST (client -> server) implementation
-  websocket-server.js  # WebSocket implementation
+  shared-state.js
+  polling-server.js
+  sse-server.js
+  websocket-server.js
 client/
-  index.html           # minimal UI: allocation table, cursor presence, price ticker
-  client.js            # transport-selectable client (?transport=polling|sse|ws)
+  index.html
+  client.js
 ```
 
-Run any one server (see `package.json` scripts) and open the client against
-it to see how each transport behaves under the same workload — try opening
-several browser tabs to simulate the ~10 concurrent desk participants, and
-watch the network tab for message overhead and latency.
+Run one server at a time (`npm run polling`, `npm run sse`, `npm run ws`) and
+open multiple browser tabs to simulate desk participants.
 
-Write your answer in `SOLUTION.md` (template provided) once you've formed
-an opinion — cite what you observed in the reference implementations if it
-changed or confirmed your reasoning.
+### Step 4: Write your recommendation
+
+Write your decision in [`SOLUTION.md`](./SOLUTION.md): pick polling vs SSE+REST
+vs WebSockets for this deal room and justify the tradeoffs.
+
+---
+
+## Scenario (same domain constraints)
+
+You are building **DealRoom Live** for a syndicate desk where ~10 participants
+collaborate in the same issuance book.
+
+- Traders edit allocation amounts per investor.
+- Desk staff lock/unlock rows while finalizing tranches.
+- Presence/cursor focus prevents edit collisions.
+- Server pushes price/spread ticks and order-book totals.
+- Compliance can publish room-wide holds that must propagate immediately.
+
+System requirements:
+
+- **Low latency** shared state updates.
+- **Bidirectional** communication (client commands + server-originated pushes).
+- **Frequent small messages** (focus/heartbeat/tick deltas).
+- **Auditability + reconnect safety** (ordered events, replay/idempotency).
