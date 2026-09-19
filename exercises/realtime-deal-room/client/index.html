@@ -2,30 +2,140 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>DealRoom Live — Real-Time Collaboration Exercise</title>
+  <title>DealRoom Live — Real-Time Collaboration Dynamics</title>
   <style>
-    body { font-family: -apple-system, sans-serif; margin: 2rem; color: #1a1a1a; }
-    h1 { font-size: 1.2rem; }
-    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; background: #eee; font-size: 0.8rem; }
-    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
-    th, td { border: 1px solid #ddd; padding: 6px 10px; text-align: left; font-size: 0.9rem; }
-    th { background: #f7f7f7; }
-    .locked { background: #fff4e5; }
-    #hold { padding: 8px; margin-top: 1rem; display: none; background: #ffe0e0; border: 1px solid #cc0000; }
-    #log { font-family: monospace; font-size: 0.75rem; max-height: 200px; overflow-y: auto; background: #fafafa; border: 1px solid #eee; padding: 8px; margin-top: 1rem; }
-    #presence span { margin-right: 8px; padding: 2px 6px; background: #e5f0ff; border-radius: 3px; font-size: 0.8rem; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 2rem; background: #0f172a; color: #f8fafc; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    h1 { font-size: 1.4rem; margin: 0; display: flex; align-items: center; gap: 0.75rem; }
+    .badge { padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+    .badge-ws { background: #10b981; color: #022c22; }
+    .badge-sse { background: #06b6d4; color: #083344; }
+    .badge-polling { background: #f59e0b; color: #451a03; }
+    
+    .transport-bar { display: flex; gap: 0.5rem; }
+    .transport-btn { padding: 6px 12px; border-radius: 6px; border: 1px solid #475569; background: #1e293b; color: #cbd5e1; cursor: pointer; text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+    .transport-btn.active { background: #3b82f6; color: white; border-color: #60a5fa; }
+
+    /* Live Telemetry HUD */
+    .hud-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .hud-card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 1rem; }
+    .hud-label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 600; }
+    .hud-value { font-size: 1.6rem; font-weight: 700; color: #38bdf8; margin-top: 0.25rem; }
+    .hud-sub { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+
+    /* Book totals banner */
+    .book-banner { background: #1e293b; border-left: 4px solid #3b82f6; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1.5rem; display: flex; gap: 2rem; font-size: 0.95rem; }
+    .book-banner strong { color: #38bdf8; }
+
+    #hold { padding: 10px 14px; margin-bottom: 1.5rem; display: none; background: #450a0a; border: 1px solid #ef4444; border-radius: 6px; color: #fca5a5; font-weight: 600; }
+    
+    /* Presence */
+    .presence-container { margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+    .presence-label { font-size: 0.85rem; color: #94a3b8; }
+    #presence { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    #presence span { padding: 3px 8px; background: #334155; border-radius: 9999px; font-size: 0.75rem; color: #93c5fd; }
+
+    /* Controls Bar */
+    .controls-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .action-btn { padding: 6px 12px; background: #334155; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+    .action-btn:hover { background: #475569; }
+    .sim-toggle { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #cbd5e1; cursor: pointer; }
+
+    /* Table */
+    table { border-collapse: collapse; width: 100%; background: #1e293b; border-radius: 8px; overflow: hidden; border: 1px solid #334155; }
+    th, td { padding: 10px 14px; text-align: left; font-size: 0.9rem; border-bottom: 1px solid #334155; }
+    th { background: #0f172a; color: #94a3b8; font-weight: 600; }
+    tr.locked { background: rgba(245, 158, 11, 0.1); }
+    .row-actions { display: flex; gap: 0.5rem; align-items: center; }
+    .btn-small { padding: 3px 8px; font-size: 0.75rem; background: #334155; color: #e2e8f0; border: 1px solid #475569; border-radius: 4px; cursor: pointer; }
+    .btn-small:hover { background: #475569; }
+    .btn-lock { background: #b45309; border-color: #d97706; }
+
+    /* Event log */
+    .log-container { margin-top: 1.5rem; }
+    .log-title { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 600; }
+    #log { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.75rem; max-height: 160px; overflow-y: auto; background: #020617; border: 1px solid #334155; padding: 10px; border-radius: 6px; color: #a5b4fc; }
   </style>
 </head>
 <body>
-  <h1>DealRoom Live <span class="badge" id="transport-badge">?</span></h1>
-  <p>Book: $<span id="covered">0</span>M covered, <span id="oversub">0</span>x oversubscribed, spread <span id="spread">0</span>bps</p>
-  <div id="hold"></div>
-  <div id="presence"></div>
-  <table>
-    <thead><tr><th>Investor</th><th>Allocation ($M)</th><th>Lock</th></tr></thead>
-    <tbody id="rows"></tbody>
-  </table>
-  <div id="log"></div>
+  <div class="container">
+    <header>
+      <h1>
+        DealRoom Live
+        <span class="badge" id="transport-badge">?</span>
+      </h1>
+      <div class="transport-bar">
+        <a href="http://localhost:4001/index.html?transport=polling" class="transport-btn" id="btn-nav-polling">Polling (:4001)</a>
+        <a href="http://localhost:4002/index.html?transport=sse" class="transport-btn" id="btn-nav-sse">SSE (:4002)</a>
+        <a href="http://localhost:4003/index.html?transport=ws" class="transport-btn" id="btn-nav-ws">WebSockets (:4003)</a>
+      </div>
+    </header>
+
+    <!-- Real-Time Telemetry HUD -->
+    <div class="hud-grid">
+      <div class="hud-card">
+        <div class="hud-label">HTTP Requests</div>
+        <div class="hud-value" id="hud-http-count">0</div>
+        <div class="hud-sub" id="hud-http-rate">0 req/sec</div>
+      </div>
+      <div class="hud-card">
+        <div class="hud-label">Header Overhead</div>
+        <div class="hud-value" id="hud-header-waste">0 KB</div>
+        <div class="hud-sub" id="hud-overhead-pct">0% total bandwidth</div>
+      </div>
+      <div class="hud-card">
+        <div class="hud-label">Delivery Latency</div>
+        <div class="hud-value" id="hud-latency">--</div>
+        <div class="hud-sub" id="hud-latency-desc">waiting for action...</div>
+      </div>
+      <div class="hud-card">
+        <div class="hud-label">Events Processed</div>
+        <div class="hud-value" id="hud-event-count">0</div>
+        <div class="hud-sub" id="hud-seq-info">Seq: 0</div>
+      </div>
+    </div>
+
+    <!-- Live Book Totals -->
+    <div class="book-banner">
+      <div>Book Covered: <strong>$<span id="covered">0</span>M</strong></div>
+      <div>Oversubscription: <strong><span id="oversub">0</span>x</strong></div>
+      <div>Spread: <strong><span id="spread">0</span> bps</strong></div>
+    </div>
+
+    <div id="hold"></div>
+
+    <div class="presence-container">
+      <span class="presence-label">Desk Participants:</span>
+      <div id="presence"></div>
+    </div>
+
+    <div class="controls-bar">
+      <div><strong>Syndicated Allocation Table</strong> (10 Desk Participants)</div>
+      <label class="sim-toggle">
+        <input type="checkbox" id="sim-traders-toggle" />
+        Simulate 3 Background Traders Typing & Moving Cursors
+      </label>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Investor</th>
+          <th>Allocation ($M)</th>
+          <th>Status</th>
+          <th>Quick Actions</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+
+    <div class="log-container">
+      <div class="log-title">Live Wire Event Stream</div>
+      <div id="log"></div>
+    </div>
+  </div>
 
   <script src="client.js"></script>
 </body>

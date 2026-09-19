@@ -4,6 +4,14 @@
   "private": true,
   "description": "Fintech real-time collaboration exercise: polling vs SSE vs WebSockets",
   "scripts": {
+    "trace:polling": "node scripts/trace.js polling",
+    "trace:sse": "node scripts/trace.js sse",
+    "trace:ws": "node scripts/trace.js ws",
+    "compare": "node scripts/simulate.js --all",
+    "monitor": "node scripts/monitor.js",
+    "sim:polling": "node scripts/simulate.js --transport=polling",
+    "sim:sse": "node scripts/simulate.js --transport=sse",
+    "sim:ws": "node scripts/simulate.js --transport=ws",
     "start:polling": "node server/polling-server.js",
     "start:sse": "node server/sse-server.js",
     "start:ws": "node server/websocket-server.js"

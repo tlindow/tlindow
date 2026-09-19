@@ -1,41 +1,104 @@
-# 👋 Hi, I’m Tyler Lindow
+# 🤖 `TYLER_LINDOW.md`
 
-[I like my website, here it is](https://tlindow.github.io/) | [Professional Me (LinkedIn)](https://www.linkedin.com/in/tlindow/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-tlindow.github.io-C084FC?style=flat-square&logo=google-chrome&logoColor=white)](https://tlindow.github.io/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Tyler%20Lindow-FACC15?style=flat-square&logo=linkedin&logoColor=000)](https://www.linkedin.com/in/tlindow/)
+[![Katas](https://img.shields.io/badge/Technical%20Katas-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000)](./exercises/README.md)
+[![Role](https://img.shields.io/badge/Role-Tech%20Lead%20%26%20Advocate-C084FC?style=flat-square)](https://tlindow.github.io/)
+[![Uptime](https://img.shields.io/badge/Platform%20Reliability-99.99%25-4ADE80?style=flat-square&logoColor=000)]()
 
-**Engineering Advocate**
-📍 San Diego, CA | Looking toward to Seattle, WA 🌲
+```typescript
+/**
+ * ==============================================================================
+ * 🤖 TYLER_LINDOW.md :: THE TECH LEAD SPEC
+ * ==============================================================================
+ */
 
-I'm at the intersection of complex systems architecture, developer advocacy, and human learning. No more code monkeys!
+export const TylerLindow = {
+  identity: {
+    name: "Tyler Lindow",
+    handle: "@tlindow",
+    role: "Tech Lead & Engineering Advocate",
+    status: "Active // Open to Architecture, Technical Leadership & DevRel",
+    location: "San Diego, CA 📍 -> Seattle, WA 🌲",
+    pronouns: "he/him 🏳️‍🌈",
+  },
 
-My strength is acting as a "conceptual translator" — removing the cognitive friction developers face at `Hello World!` and making sure everyone gets along 🏳️‍🌈
+  interfaces: {
+    portfolio: "https://tlindow.github.io/",
+    network: "https://www.linkedin.com/in/tlindow/",
+    katas: "./exercises/README.md",
+  },
+
+  mission:
+    "Remove cognitive friction at `Hello World!`, act as conceptual translator across systems & humans, and ensure everyone gets along ('No more code monkeys!').",
+
+  corePhilosophy: {
+    systemArchitectureAsSculpting:
+      "Top-down AI generation; human craftsmanship meticulously chips away excess logic to build sustainable, scalable systems.",
+    domainDrivenReliability:
+      "Architecture anchored to business value (engineered domain separation enabling 99.99% uptime at Affirm).",
+    firstPrinciplesUpskilling:
+      "'Learning-by-doing' pedagogy to de-risk catastrophic production failures.",
+    embodimentAxiom:
+      "'Typing IS learning. When we type, we embody the code, the software. If we outsource our typing, we outsource our learning.'",
+  },
+
+  agentTopology: {
+    theTechLead: {
+      owner: "me (Tyler Lindow / README.md)",
+      altitude: "High (Architecture Vision, Advocacy, Conceptual Translation, Culture 🏳️‍🌈)",
+    },
+    theCoachingAgent: {
+      spec: "exercises/outer-loop.md",
+      altitude: "Macro (4-Step System Design Framework, Defensible Trade-offs)",
+      review: "Asynchronous post-push critique via GitHub Copilot on PRs",
+    },
+    theBuilder: {
+      spec: "exercises/inner-loop.md",
+      altitude: "Micro (Hands-on pairing partner, syntax/types, typing close-to-metal)",
+      directive: "Never writes the fix directly; keeps the human typing",
+    },
+  },
+
+  activeKatas: {
+    protoLearning: {
+      path: "./exercises/proto-learning/",
+      focus: "Protobuf & gRPC B2B settlements, precision money, streaming RPCs",
+    },
+    nextjsLearning: {
+      path: "./exercises/nextjs-learning/",
+      focus: "Next.js App Router ledger & streaming architecture, RSC boundaries",
+    },
+    realtimeDealRoom: {
+      path: "./exercises/realtime-deal-room/",
+      focus: "Polling vs. SSE vs. WebSockets for syndicated bookbuild deal rooms",
+    },
+    restApiTrading: {
+      path: "./exercises/rest-api-trading/",
+      focus: "Idempotency keys, IDOR prevention, order execution contracts",
+    },
+  },
+} as const;
+```
 
 ---
 
-### 🧠 Product Tech Strategy & Architectural Philosophy
+### 🧰 Outer Toolset *(Invisible to the Agents)*
 
-*   **System Architecture as Sculpting:** With the rise of agentic frameworks (like Cursor and Jules) and LLMs, I take a "top-down" approach to coding. AI generates the broad strokes, and human craftsmanship chips away the excess logic to build sustainable, scalable systems.
-*   **Domain-Driven Reliability:** Architectural decisions must hinge on deeply understanding the core value proposition. At Affirm, I mediated a critical platform re-architecture to provide better domain separation, directly enabling support for 99.99% uptime capabilities.
-*   **First-Principles GenAI Upskilling:** I favor systems built on trust, rigorous logic, and a radical commitment to debunking technical misconceptions. I spearheaded the organizational adoption of LLMs via "learning-by-doing" pedagogy to de-risk catastrophic failure points in production.
+```bash
+# ┌─ [tyler@macbook-pro:~] ────────────────────────────────────────────────────────┐
+# │ $ cat ~/.outer_runtime.env                                                    │
+# └───────────────────────────────────────────────────────────────────────────────┘
 
----
-
-### 🎯 Hands-On Learning Exercises
-
-This repo also hosts my personal technical katas — see [`exercises/`](./exercises/README.md) for Protobuf/gRPC fintech settlement schemas, Next.js App Router architecture, and a real-time collaboration transport-design exercise (polling vs SSE vs WebSockets).
-
----
-
-### 🛠️ Tools I like
-
-*  **Google:** Google Colab (PyTorch and what not), Antigravity, Gemini
-*  **Vercel** (but sometimes it's too expensive). It least it doesn't feel like I might never finish reading the docs... (AWS 👀) 
-    *  I have mixed feelings about Next.js --> I feel like it injects way too much opinion about the design of the site, but it get's the job done...
-*  **Cursor:** (very expensive, but works really well for coding on-the-go)
-*  **Luma:** > Meetup
-*  **Front-end Frameworks:** I guess we are still using React?
-*  **SQL:** Where would we be without Snowflake (at least within a corporate setting)
-*  **Languages:** I'm pretty good at reading JavaScript/Node.js | I can make something up in Flask/Python when I put my mind to it
+export WORKFLOW="Mac + Cursor (high-velocity coding on-the-go)"
+export CLOUD_AI="Google Colab • Gemini • Antigravity • PyTorch experiments"
+export HOSTING="Vercel (docs actually have an end... AWS 👀)"
+export FRONTEND="Next.js (love-hate: opinionated, but gets it done) • React"
+export DATA_WAREHOUSE="Snowflake (enterprise corporate analytical backbone)"
+export LANGUAGES="JavaScript / Node.js by eye • Python / Flask by craft"
+export COMMUNITY="Luma > Meetup"
+```
 
 ---
 
-*Ready to talk architecture, developer relations, or technical leadership? Review my full portfolio on [My Website](https://tlindow.github.io/), or connect with me directly on [LinkedIn](https://www.linkedin.com/in/tlindow/) to start the conversation.*
+*Open to conversations on distributed architecture, developer relations, or technical leadership. Connect on [LinkedIn](https://www.linkedin.com/in/tlindow/) or explore my full portfolio at [tlindow.github.io](https://tlindow.github.io/).*

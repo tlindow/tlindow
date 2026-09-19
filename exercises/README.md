@@ -20,6 +20,7 @@ Choose a learning track below and dive into the respective exercise folder:
 | **`proto-learning/`** | **Protobuf & gRPC B2B Settlements** | Precision money structures, proto3 enums, `oneof` polymorphic bank payout rails, repeated fee items, streaming RPCs | 🟢 Ready | [`exercises/proto-learning/README.md`](./proto-learning/README.md) |
 | **`nextjs-learning/`** | **Next.js App Router: Ledger & Streaming Architecture** | RSC vs client boundaries, Suspense streaming, Server Actions, cache invalidation, parallel/intercepting routes | 🟢 Ready | [`exercises/nextjs-learning/README.md`](./nextjs-learning/README.md) |
 | **`realtime-deal-room/`** | **Real-Time Collaboration Transport Design** | Short/long polling vs SSE vs WebSockets for a live syndicated bookbuild deal room (~10 concurrent desk participants) | 🟢 Ready | [`exercises/realtime-deal-room/README.md`](./realtime-deal-room/README.md) |
+| **`rest-api-trading/`** | **REST API Design: Stock Trading & Orders** | HTTP methods, resource URI hierarchies, param placement (path/query/body), idempotency keys, IDOR prevention, precision money | 🟢 Ready | [`exercises/rest-api-trading/README.md`](./rest-api-trading/README.md) |
 
 ---
 
@@ -36,3 +37,11 @@ Each exercise track lives in its own subdirectory and contains:
 1. Open the exercise file in your editor.
 2. Work through the challenges step-by-step, typing out schemas or implementations.
 3. Review and reflect on the architectural trade-offs (data types, serialization, wire performance, API contracts, latency/consistency tradeoffs).
+
+---
+
+## 🤖 Two-Agent Practice Workflow
+
+Exercises in this directory are supported by two distinct agent workflows:
+- [`inner-loop.md`](./inner-loop.md) — **Code Progress Partner**: Operates pre-push locally. Focuses on typing-is-learning, Socratic unblocking, and inline code hints.
+- [`outer-loop.md`](./outer-loop.md) — **Architecture & Altitude Coach**: Chimes in to maintain senior architectural altitude and enforce repeatable system design frameworks; anchors post-push **GitHub Copilot code reviews** on PRs for on-the-go review.
