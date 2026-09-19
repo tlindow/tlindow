@@ -20,7 +20,7 @@ export const TylerLindow = {
     role: "Tech Lead & Engineering Advocate",
     status: "Active // Open to Architecture, Technical Leadership & DevRel",
     location: "San Diego, CA 📍 -> Seattle, WA 🌲",
-    pronouns: "he/him 🏳️‍🌈",
+    pronouns: "he/him/tyler",
   },
 
   interfaces: {
