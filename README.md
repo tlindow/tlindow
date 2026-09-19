@@ -3,13 +3,13 @@
 [![Portfolio](https://img.shields.io/badge/Portfolio-tlindow.github.io-C084FC?style=flat-square&logo=google-chrome&logoColor=white)](https://tlindow.github.io/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Tyler%20Lindow-FACC15?style=flat-square&logo=linkedin&logoColor=000)](https://www.linkedin.com/in/tlindow/)
 [![Katas](https://img.shields.io/badge/Technical%20Katas-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000)](./exercises/README.md)
-[![Role](https://img.shields.io/badge/Role-Tech%20Lead%20%26%20Advocate-C084FC?style=flat-square)](https://tlindow.github.io/)
+[![Role](https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square)](https://tlindow.github.io/)
 [![Uptime](https://img.shields.io/badge/Platform%20Reliability-99.99%25-4ADE80?style=flat-square&logoColor=000)]()
 
 ```typescript
 /**
  * ==============================================================================
- * 🤖 TYLER_LINDOW.md :: THE TECH LEAD SPEC
+ * 🤖 TYLER_LINDOW.md :: ENGINEERING MANAGEMENT SPEC
  * ==============================================================================
  */
 
@@ -17,8 +17,9 @@ export const TylerLindow = {
   identity: {
     name: "Tyler Lindow",
     handle: "@tlindow",
-    role: "Tech Lead & Engineering Advocate",
-    status: "Active // Open to Architecture, Technical Leadership & DevRel",
+    role: "Engineering Management",
+    innerAgent: "Tech Lead",
+    status: "Active // Open to Engineering Leadership & Architecture",
     location: "San Diego, CA 📍 -> Seattle, WA 🌲",
     pronouns: "he/him/tyler",
     supports: [
@@ -50,9 +51,10 @@ export const TylerLindow = {
   },
 
   agentTopology: {
-    theTechLead: {
+    theEngineeringManager: {
       owner: "me (Tyler Lindow / README.md)",
-      altitude: "High (Architecture Vision, Advocacy, Conceptual Translation, Culture 🏳️‍🌈)",
+      innerAgent: "Tech Lead",
+      altitude: "High (People & Systems Leadership, Architecture Vision, Conceptual Translation, Culture 🏳️‍🌈)",
     },
     theCoachingAgent: {
       spec: "exercises/outer-loop.md",
