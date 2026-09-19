@@ -30,12 +30,12 @@
     
     .card-box { fill: #FAF8F5; stroke: #EAE6DC; stroke-width: 1px; rx: 8px; }
   </style>
+</defs>
   <rect x="2" y="2" width="876" height="1388" class="bg" />
-  <rect x="2" y="2" width="876" height="1556" class="bg" />
   <rect x="40" y="40" width="220" height="28" class="tag-badge" />
   <text x="50" y="58" class="tag-text">ENGINEERING SPEC</text>
   <text x="40" y="105" class="title-name">Tyler Lindow (@tlindow)</text>
-  <text x="40" y="136" class="title-role">ROLE: Engineering Management  //  INNER AGENT: Tech Lead</text>
+  <text x="40" y="136" class="title-role">ROLE: Engineering Management</text>
   <text x="40" y="166" class="meta-text">📍 San Diego, CA → Seattle, WA 🌲   •   he/him/tyler   •   Open to Leadership</text>
   <rect x="40" y="188" width="145" height="28" class="pill-bg" />
   <text x="52" y="206" class="pill-text">🏳️‍🌈 LGBTQ+</text>
@@ -48,8 +48,8 @@
   <line x1="40" y1="240" x2="840" y2="240" class="divider" />
   <text x="40" y="275" class="sec-label">🎯 DIRECTIVE &amp; MISSION</text>
   <text x="40" y="307" class="h-text">The Conceptual Translator</text>
-  <text x="40" y="335" class="b-text">Eliminate cognitive friction at <tspan class="highlight">Hello World!</tspan>, bridge technical communication divides across</text>
-  <text x="40" y="361" class="b-text">engineering and product, and ensure everyone gets along (<tspan class="quote-text">"No more code monkeys!"</tspan> 🏳️‍🌈).</text>
+  <text x="40" y="335" class="b-text">Eliminate cognitive friction at <tspan class="highlight">Hello World!</tspan>, bridge technical communication divides</text>
+  <text x="40" y="361" class="b-text">across engineering and product, and ensure everyone gets along (<tspan class="quote-text">"No more code monkeys!"</tspan> 🏳️‍🌈).</text>
   <line x1="40" y1="401" x2="840" y2="401" class="divider" />
   <text x="40" y="436" class="sec-label">🧠 CORE ARCHITECTURAL PHILOSOPHY</text>
   <text x="40" y="474" class="h-text">1. System Architecture as Sculpting</text>
@@ -68,7 +68,7 @@
   <text x="40" y="867" class="sec-label">📐 AGENT TOPOLOGY (TRI-AGENT ARCHITECTURE)</text>
   <rect x="40" y="897" width="800" height="76" class="card-box" />
   <text x="56" y="925" class="h-text">👑 The Engineering Manager  <tspan class="title-role">(me / README.md)</tspan></text>
-  <text x="56" y="951" class="b-muted">Inner Agent: Tech Lead  •  Strategy, Systems Leadership, Translation &amp; Culture 🏳️‍🌈</text>
+  <text x="56" y="951" class="b-muted">Strategy, Systems Leadership, Translation &amp; Culture 🏳️‍🌈</text>
   <rect x="40" y="985" width="800" height="76" class="card-box" />
   <text x="56" y="1013" class="h-text">🧠 The Coaching Agent  <tspan class="title-role">(exercises/outer-loop.md)</tspan></text>
   <text x="56" y="1039" class="b-muted">4-Step System Design Framework  •  Defensible Trade-offs  •  Async PR Reviews</text>
@@ -78,11 +78,11 @@
   <line x1="40" y1="1179" x2="840" y2="1179" class="divider" />
   <text x="40" y="1214" class="sec-label">🧪 ACTIVE TECHNICAL KATAS (exercises/)</text>
   <text x="40" y="1246" class="highlight">• proto-learning/</text>
-  <text x="250" y="1246" class="b-muted">Protobuf & gRPC B2B settlements, precision money, streaming RPCs</text>
+  <text x="240" y="1246" class="b-muted">Protobuf &amp; gRPC B2B settlements, precision money, streaming RPCs</text>
   <text x="40" y="1278" class="highlight">• nextjs-learning/</text>
-  <text x="250" y="1278" class="b-muted">Next.js App Router streaming ledger, RSC boundaries, server actions</text>
+  <text x="240" y="1278" class="b-muted">Next.js App Router streaming ledger, RSC boundaries, server actions</text>
   <text x="40" y="1310" class="highlight">• realtime-deal-room/</text>
-  <text x="250" y="1310" class="b-muted">Transport trade-offs: polling vs. SSE vs. WebSockets for syndicated rooms</text>
+  <text x="240" y="1310" class="b-muted">Polling vs. SSE vs. WebSockets for live syndicated deal rooms</text>
   <text x="40" y="1342" class="highlight">• rest-api-trading/</text>
-  <text x="250" y="1342" class="b-muted">REST stock trading APIs, idempotency keys, IDOR security prevention</text>
+  <text x="240" y="1342" class="b-muted">REST stock trading APIs, idempotency keys, IDOR security prevention</text>
 </svg>

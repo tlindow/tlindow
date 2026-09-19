@@ -1,110 +1,83 @@
-# 🤖 `TYLER_LINDOW.md`
-
-[![Portfolio](https://img.shields.io/badge/Portfolio-tlindow.github.io-C084FC?style=flat-square&logo=google-chrome&logoColor=white)](https://tlindow.github.io/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Tyler%20Lindow-FACC15?style=flat-square&logo=linkedin&logoColor=000)](https://www.linkedin.com/in/tlindow/)
-[![Katas](https://img.shields.io/badge/Technical%20Katas-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000)](./exercises/README.md)
-[![Role](https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square)](https://tlindow.github.io/)
-[![Uptime](https://img.shields.io/badge/Platform%20Reliability-99.99%25-4ADE80?style=flat-square&logoColor=000)]()
-
 <div align="center">
-  <img src="./assets/tyler_lindow.svg" alt="TYLER_LINDOW.md Spec in Space Mono" width="100%" />
+  <a href="https://tlindow.github.io/">
+    <img src="./assets/lindow-labs-icon.svg" alt="Lindow Labs" width="72" height="72" />
+  </a>
+  <h1>Lindow Labs</h1>
+  <p><strong>Tyler Lindow (@tlindow)</strong> · Engineering Management</p>
+
+  <p>
+    <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Portfolio-tlindow.github.io-C084FC?style=flat-square&logo=google-chrome&logoColor=white" alt="Portfolio" /></a>
+    <a href="https://www.linkedin.com/in/tlindow/"><img src="https://img.shields.io/badge/LinkedIn-Tyler%20Lindow-FACC15?style=flat-square&logo=linkedin&logoColor=000" alt="LinkedIn" /></a>
+    <a href="./exercises/README.md"><img src="https://img.shields.io/badge/Technical%20Katas-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000" alt="Technical Katas" /></a>
+    <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square" alt="Role" /></a>
+    <img src="https://img.shields.io/badge/Platform%20Reliability-99.99%25-4ADE80?style=flat-square&logoColor=000" alt="Platform Reliability" />
+  </p>
 </div>
-
-<details>
-<summary>📄 View Raw Code Spec</summary>
-
-```typescript
-/**
- * ==============================================================================
- * 🤖 TYLER_LINDOW.md :: ENGINEERING MANAGEMENT SPEC
- * ==============================================================================
- */
-
-export const TylerLindow = {
-  identity: {
-    name: "Tyler Lindow",
-    handle: "@tlindow",
-    role: "Engineering Management",
-    innerAgent: "Tech Lead",
-    status: "Active // Open to Engineering Leadership & Architecture",
-    location: "San Diego, CA 📍 -> Seattle, WA 🌲",
-    pronouns: "he/him/tyler",
-    supports: [
-      "🏳️‍🌈 LGBTQ+",
-      "👩 Women",
-      "✊🏾 BIPOC",
-      "♿ Differently Abled",
-    ],
-  },
-
-  interfaces: {
-    portfolio: "https://tlindow.github.io/",
-    network: "https://www.linkedin.com/in/tlindow/",
-    katas: "./exercises/README.md",
-  },
-
-  mission:
-    "Remove cognitive friction at `Hello World!`, act as conceptual translator across systems & humans, and ensure everyone gets along ('No more code monkeys!').",
-
-  corePhilosophy: {
-    systemArchitectureAsSculpting:
-      "Top-down AI generation; human craftsmanship meticulously chips away excess logic to build sustainable, scalable systems.",
-    domainDrivenReliability:
-      "Architecture anchored to business value (engineered domain separation enabling 99.99% uptime at Affirm).",
-    firstPrinciplesUpskilling:
-      "'Learning-by-doing' pedagogy to de-risk catastrophic production failures.",
-    embodimentAxiom:
-      "'Typing IS learning. When we type, we embody the code, the software. If we outsource our typing, we outsource our learning.'",
-  },
-
-  agentTopology: {
-    theEngineeringManager: {
-      owner: "me (Tyler Lindow / README.md)",
-      innerAgent: "Tech Lead",
-      altitude: "High (People & Systems Leadership, Architecture Vision, Conceptual Translation, Culture 🏳️‍🌈)",
-    },
-    theCoachingAgent: {
-      spec: "exercises/outer-loop.md",
-      altitude: "Macro (4-Step System Design Framework, Defensible Trade-offs)",
-      review: "Asynchronous post-push critique via GitHub Copilot on PRs",
-    },
-    theBuilder: {
-      spec: "exercises/inner-loop.md",
-      altitude: "Micro (Hands-on pairing partner, syntax/types, typing close-to-metal)",
-      directive: "Never writes the fix directly; keeps the human typing",
-    },
-  },
-
-  activeKatas: {
-    protoLearning: {
-      path: "./exercises/proto-learning/",
-      focus: "Protobuf & gRPC B2B settlements, precision money, streaming RPCs",
-    },
-    nextjsLearning: {
-      path: "./exercises/nextjs-learning/",
-      focus: "Next.js App Router ledger & streaming architecture, RSC boundaries",
-    },
-    realtimeDealRoom: {
-      path: "./exercises/realtime-deal-room/",
-      focus: "Polling vs. SSE vs. WebSockets for live syndicated deal rooms",
-    },
-    restApiTrading: {
-      path: "./exercises/rest-api-trading/",
-      focus: "Idempotency keys, IDOR prevention, order execution contracts",
-    },
-  },
-} as const;
-```
-
-</details>
 
 ---
 
-### 🧰 Outer Toolset *(Invisible to the Agents)*
+### 👤 Identity & Context
+
+- **Role:** Engineering Management
+- **Status:** Active · Open to Engineering Leadership & Architecture
+- **Location:** San Diego, CA 📍 &rarr; Seattle, WA 🌲
+- **Pronouns:** he/him/tyler
+- **Supports:** 🏳️‍🌈 LGBTQ+ · 👩 Women in Tech · ✊🏾 BIPOC · ♿ Differently Abled
+
+---
+
+### 🎯 Directive & Mission
+
+**The Conceptual Translator**  
+Eliminate cognitive friction at `Hello World!`, bridge technical communication divides across engineering and product, and ensure everyone gets along (*"No more code monkeys!"* 🏳️‍🌈).
+
+- **Portfolio:** [tlindow.github.io](https://tlindow.github.io/)
+- **Network:** [linkedin.com/in/tlindow](https://www.linkedin.com/in/tlindow/)
+- **Technical Katas:** [`exercises/README.md`](./exercises/README.md)
+
+---
+
+### 🧠 Core Architectural Philosophy
+
+1. **System Architecture as Sculpting**  
+   Top-down AI generation; human craftsmanship meticulously chips away excess logic to construct sustainable, resilient distributed architectures.
+
+2. **Domain-Driven Reliability (99.99% Availability)**  
+   Architectural choices must anchor to core business value. Mediated platform re-architecture at Affirm to enforce strict domain separation unlocking 99.99% uptime.
+
+3. **First-Principles GenAI Upskilling**  
+   "Learning-by-doing" pedagogy to debunk misconceptions and systematically de-risk catastrophic production failure modes.
+
+4. **The Embodiment Axiom**  
+   > *"As software engineers, typing IS learning. When we type, we embody the code, the software. If we outsource our typing, we outsource our learning."*
+
+---
+
+### 📐 Agent Topology (Tri-Agent Architecture)
+
+- 👑 **The Engineering Manager** (`me / README.md`)  
+  *Altitude: High* · People & Systems Leadership, Architecture Vision, Conceptual Translation, Culture 🏳️‍🌈
+- 🧠 **The Coaching Agent** ([`exercises/outer-loop.md`](./exercises/outer-loop.md))  
+  *Altitude: Macro* · 4-Step System Design Framework, Defensible Trade-offs · Asynchronous post-push critique via GitHub Copilot on PRs
+- ⚡ **The Builder** ([`exercises/inner-loop.md`](./exercises/inner-loop.md))  
+  *Altitude: Micro* · Hands-on pairing partner, syntax/types, typing close-to-metal · Never writes the fix directly; keeps the human typing
+
+---
+
+### 🧪 Active Technical Katas (`exercises/`)
+
+- [`proto-learning/`](./exercises/proto-learning/) — Protobuf & gRPC B2B settlements, precision money, streaming RPCs
+- [`nextjs-learning/`](./exercises/nextjs-learning/) — Next.js App Router streaming ledger, RSC boundaries, server actions
+- [`realtime-deal-room/`](./exercises/realtime-deal-room/) — Polling vs. SSE vs. WebSockets for live syndicated deal rooms
+- [`rest-api-trading/`](./exercises/rest-api-trading/) — REST stock trading APIs, idempotency keys, IDOR security prevention
+
+---
+
+### 💭 Opinions
 
 ```bash
 # ┌─ [tyler@macbook-pro:~] ────────────────────────────────────────────────────────┐
-# │ $ cat ~/.outer_runtime.env                                                    │
+# │ $ cat ~/.opinions.env                                                         │
 # └───────────────────────────────────────────────────────────────────────────────┘
 
 export WORKFLOW="Mac + Cursor (high-velocity coding on-the-go)"
@@ -116,6 +89,3 @@ export LANGUAGES="JavaScript / Node.js by eye • Python / Flask by craft"
 export COMMUNITY="Luma > Meetup"
 ```
 
----
-
-*Open to conversations on distributed architecture, developer relations, or technical leadership. Connect on [LinkedIn](https://www.linkedin.com/in/tlindow/) or explore my full portfolio at [tlindow.github.io](https://tlindow.github.io/).*
