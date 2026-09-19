@@ -1,0 +1,119 @@
+// ============================================================================
+// EXERCISE: Peer-to-Peer Payment Service RPC Interface
+// ============================================================================
+// Domain Problem:
+// You are designing an RPC interface for a peer-to-peer payments service
+// that reports transfer-limit data for a user's account/corridor (the pair
+// of sender + receiver payment rails, e.g. "US bank -> UK bank").
+//
+// (Translated from a "weather reporting service" prompt sourced from another
+// LLM chat, which iteratively critiques a submitted design without supplying
+// the fix. Work the design out yourself here; do not accept fixes from
+// Copilot directly — use it only to ask leading questions about gaps.)
+//
+// RPCs to define:
+//   1. GetCurrentTransferRate: return the current transfer rate (e.g. fee %
+//      or FX rate) for sending money over a given account/corridor.
+//   2. Get3DayTransferLimitForecast: return the high and low transfer limit
+//      for the next 3 days for that same account/corridor.
+//
+// Design expectations:
+//   - Account/corridors must be unambiguous. Prefer a structured
+//     representation (e.g. sender account + receiver account + rail/network)
+//     and consider an alternative such as a stable corridor ID.
+//   - Rate/limit values must include an explicit currency.
+//   - Include basic error handling (invalid request, account/corridor not
+//     found, account inactive/suspended).
+//   - Date/time semantics must be explicit:
+//       * What timezone is used for "date" in the forecast?
+//       * Does "next 3 days" include today or start tomorrow?
+//       * What happens if the service cannot provide exactly 3 days?
+//
+// Open critique points to resolve in your own draft (track as you iterate):
+//   [ ] Named request/response record types (not positional arrays/tuples).
+//   [ ] Structured account/corridor representation offered *alongside* a
+//       stable ID option, not instead of it.
+//   [ ] Currency constrained to a defined set, not a free-form string.
+//   [ ] Forecast day fields (date/high/low limit) clearly named, with an
+//       explicit date type/format (not an undocumented string).
+//   [ ] Deterministic rule for whether the 3-day window includes today or
+//       starts tomorrow — a hard rule, not a conditional.
+//   [ ] Deterministic behavior when fewer than 3 valid days are available.
+// ============================================================================
+
+syntax = "proto3";
+
+package fintech.p2ppayments.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/type/date.proto";
+import "google/type/timezone.proto";
+
+message Corridor {
+  google.type.TimeZone time_zone = 1;
+  User initiating_user = 2;
+  User receiving_user = 3;
+  NetworkType network_type = 4;
+  optional string corridor_id = 5;
+}
+
+message User {
+  string id = 1;
+  string institution = 2;
+  Location location = 3;
+}
+
+message Location {
+  string id = 1;
+  string region = 2;
+  string country = 3;
+  string city = 4;
+}
+
+message TransferRate {
+  google.type.Date date = 1;
+  int64 rate = 2;
+  Currency currency = 3;
+  string corridor_id = 4;
+  ErrorCode error = 5;
+}
+
+message TransferLimits {
+  optional google.type.Date first_day_date = 1; // Starts with today
+  optional google.type.Date second_day_date = 2;
+  optional google.type.Date third_day_date = 3; 
+  optional HighLowLimits first_day_limit = 4;
+  optional HighLowLimits second_day_limit = 5;
+  optional HighLowLimits third_day_limit = 6;
+  string corridor_id = 7;
+  ErrorCode error = 8;
+}
+
+message HighLowLimits {
+  int64 high_limit = 1;
+  int64 low_limit = 2;
+}
+
+enum Currency {
+  CURRENCY_TYPE_UNSPECIFIED = 0;
+  USD = 1;
+  CAD = 2;
+}
+
+enum NetworkType {
+  NETWORK_TYPE_UNSPECIFIED = 0;
+  ACH = 1;
+  WIRE = 2;
+}
+
+enum ErrorCode {
+    ERROR_CODE_UNSPECIFIED = 0;
+    NOT_FOUND = 1;
+    INVALID = 2;
+    INACTIVE = 3;
+}
+
+service P2pPaymentService {
+  rpc GetCurrentTransferRate(Corridor) returns (TransferRate);
+  rpc Get3DayTransferLimitForecast(Corridor) returns (TransferLimits);
+}
