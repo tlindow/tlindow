@@ -6,6 +6,13 @@
 [![Role](https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square)](https://tlindow.github.io/)
 [![Uptime](https://img.shields.io/badge/Platform%20Reliability-99.99%25-4ADE80?style=flat-square&logoColor=000)]()
 
+<div align="center">
+  <img src="./assets/tyler_lindow.svg" alt="TYLER_LINDOW.md Spec in Space Mono" width="100%" />
+</div>
+
+<details>
+<summary>📄 View Raw Code Spec</summary>
+
 ```typescript
 /**
  * ==============================================================================
@@ -79,7 +86,7 @@ export const TylerLindow = {
     },
     realtimeDealRoom: {
       path: "./exercises/realtime-deal-room/",
-      focus: "Polling vs. SSE vs. WebSockets for syndicated bookbuild deal rooms",
+      focus: "Polling vs. SSE vs. WebSockets for live syndicated deal rooms",
     },
     restApiTrading: {
       path: "./exercises/rest-api-trading/",
@@ -88,6 +95,8 @@ export const TylerLindow = {
   },
 } as const;
 ```
+
+</details>
 
 ---
 
