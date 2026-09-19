@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 104" width="100%" height="104" fill="none">
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; fill: #1F1D1A; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11.5px; fill: #736E67; }
+    .pass-badge-bg { fill: #ECFDF5; stroke: #10B981; stroke-width: 1px; }
+    .pass-badge-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 10px; font-weight: 700; fill: #047857; letter-spacing: 0.5px; }
+    .threshold-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 9.5px; font-weight: 600; fill: #DC2626; }
+    .legend-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 600; fill: #1F1D1A; }
+    .legend-muted { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11.5px; font-weight: 400; fill: #736E67; }
+    .axiom { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; font-style: italic; fill: #047857; }
+
+    @media (prefers-color-scheme: dark) {
+      .title { fill: #F0F6FC; }
+      .subtitle { fill: #8B949E; }
+      .pass-badge-bg { fill: #064E3B; stroke: #34D399; }
+      .pass-badge-text { fill: #34D399; }
+      .threshold-label { fill: #F87171; }
+      .legend-text { fill: #E6EDF3; }
+      .legend-muted { fill: #8B949E; }
+      .axiom { fill: #34D399; }
+    }
+  </style>
+
+  <defs>
+    <linearGradient id="ai-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+    <linearGradient id="typed-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+    <clipPath id="bar-clip">
+      <rect x="0" y="32" width="800" height="12" rx="6" />
+    </clipPath>
+  </defs>
+
+  <!-- Title, Pass Badge, and Total LOC -->
+  <text x="0" y="16" class="title">Codebase Provenance</text>
+  <rect x="145" y="4" width="82" height="16" rx="4" class="pass-badge-bg" />
+  <text x="186" y="16" text-anchor="middle" class="pass-badge-text">PASS ≥10%</text>
+  <text x="800" y="16" text-anchor="end" class="subtitle">3,690 Total LOC (32 Tracked Files)</text>
+
+  <!-- Progress Bar Track (87.5% AI vs 12.5% Hand-Typed) -->
+  <g clip-path="url(#bar-clip)">
+    <!-- AI Generated: 87.5% = 698px -->
+    <rect x="0" y="32" width="698" height="12" fill="url(#ai-grad)" />
+    <!-- Separator Gap: 2px -->
+    <rect x="698" y="32" width="2" height="12" fill="#FFFDF7" opacity="0.4" />
+    <!-- Hand Typed: 12.5% = 100px -->
+    <rect x="700" y="32" width="100" height="12" fill="url(#typed-grad)" />
+  </g>
+
+  <!-- Threshold Marker Line at 10% (x = 720px) -->
+  <line x1="720" y1="25" x2="720" y2="48" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="2 2" />
+  <text x="720" y="22" text-anchor="middle" class="threshold-label">▼ 10% FAIL THRESHOLD</text>
+
+  <!-- Legend Items -->
+  <g transform="translate(0, 68)">
+    <!-- AI Scaffolding Dot & Label -->
+    <circle cx="5" cy="4" r="4.5" fill="#8B5CF6" />
+    <text x="16" y="8" class="legend-text">87.5% AI Scaffolding <tspan class="legend-muted">(3,228 LOC)</tspan></text>
+
+    <!-- Hand-Typed Dot & Label -->
+    <circle cx="280" cy="4" r="4.5" fill="#10B981" />
+    <text x="291" y="8" class="legend-text">12.5% Hand-Typed Craft <tspan class="legend-muted">(462 LOC · Passed threshold)</tspan></text>
+  </g>
+
+  <!-- Grounding Axiom & Threshold Rule -->
+  <text x="0" y="98" class="axiom">Embodiment Rule: Code coverage fails below 10% hand-typed. Typing IS learning; outsourcing &gt;90% violates the axiom.</text>
+</svg>

@@ -11,7 +11,12 @@
     <a href="./exercises/README.md"><img src="https://img.shields.io/badge/Technical%20Katas-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000" alt="Technical Katas" /></a>
     <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square" alt="Role" /></a>
     <img src="https://img.shields.io/badge/Platform%20Reliability-99.99%25-4ADE80?style=flat-square&logoColor=000" alt="Platform Reliability" />
+    <img src="https://img.shields.io/badge/Typing%20Coverage-12.5%25%20PASS%20(%E2%89%A510%25)-10B981?style=flat-square" alt="Typing Coverage PASS" />
   </p>
+</div>
+
+<div align="center">
+  <img src="./assets/coverage-bar.svg" alt="Codebase Provenance: 87.5% AI Scaffolding, 12.5% Hand-Typed Craft" width="100%" />
 </div>
 
 ---
@@ -49,7 +54,8 @@ Eliminate cognitive friction at `Hello World!`, bridge technical communication d
    "Learning-by-doing" pedagogy to debunk misconceptions and systematically de-risk catastrophic production failure modes.
 
 4. **The Embodiment Axiom**  
-   > *"As software engineers, typing IS learning. When we type, we embody the code, the software. If we outsource our typing, we outsource our learning."*
+   > *"As software engineers, typing IS learning. When we type, we embody the code, the software. If we outsource our typing, we outsource our learning."*  
+   *Enforced via pre-commit linter ([`scripts/check_typing_coverage.py`](./scripts/check_typing_coverage.py)): commits fail if hand-typed coverage drops below 10%.*
 
 ---
 

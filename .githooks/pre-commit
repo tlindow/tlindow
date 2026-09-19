@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# LINDOW LABS: Pre-Commit Embodiment Linter
+# Enforces that repository hand-typed code coverage does not drop below 10.0%.
+# ==============================================================================
+
+set -eo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+LINTER="$REPO_ROOT/scripts/check_typing_coverage.py"
+
+if [ ! -f "$LINTER" ]; then
+  echo "❌ Error: Typing coverage linter not found at $LINTER"
+  exit 1
+fi
+
+python3 "$LINTER" --mode staged --threshold 10.0
