@@ -1,10 +1,10 @@
-# Next.js App Router Mastery: High-Performance Ledger & Streaming Architecture
+# Next.js App Router Mastery: Streaming Dashboard Architecture
 
-> **Original interview answer:** Build a streamed operator dashboard with clear server/client boundaries.
+> **Original interview answer:** Build a streamed dashboard with clear server/client boundaries.
 
 Welcome to the hands-on **Next.js (App Router) architectural exercise**. This exercise is tailored to modern React Server Components (RSC), Suspense streaming, optimistic mutations via Server Actions, and granular cache invalidation.
 
-Within the broader **agent-first financial operations dashboard**, this track is the control-plane UI where operators and agents observe settlement state, review anomalies, and trigger financial actions safely.
+The underlying design question here is generic: **how do you build a fast, streamed dashboard with clean server/client boundaries?** The ledger and settlement examples in this repo are just a translation layer for that broader App Router architecture problem.
 
 ---
 

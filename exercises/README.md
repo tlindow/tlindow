@@ -5,9 +5,10 @@ tutorials** designed exclusively for personal learning and deep skill-building.
 It lives in this profile repo (rather than the personal site repo) so it sits
 alongside the README that highlights technical strengths.
 
-Together, these tracks now ladder into one umbrella system: an **agent-first
-financial operations dashboard** spanning contracts, APIs, real-time
-coordination, and the control-plane UI.
+These tracks are rooted in **classic system design and architecture questions**
+first. When a track uses a specific business domain, treat that domain as a
+translation layer for practicing the underlying design pattern rather than the
+point of the exercise itself.
 
 > *"As software engineers, typing IS learning. When we type, we are embodying
 > the code, the software. If we outsource our typing, we outsource our
@@ -21,10 +22,10 @@ Choose a learning track below and dive into the respective exercise folder:
 
 | Track | Topic | Focus Areas | Status | Start Here |
 | :--- | :--- | :--- | :--- | :--- |
-| **`proto-learning/`** | **Settlement & Ledger Event Contracts** | Precision money structures, proto3 enums, `oneof` payout rails, repeated fee items, streaming settlement events | 🟢 Ready | [`exercises/proto-learning/README.md`](./proto-learning/README.md) |
-| **`nextjs-learning/`** | **Agent Control Plane UI** | RSC vs client boundaries, Suspense streaming, Server Actions, cache invalidation, parallel/intercepting routes | 🟢 Ready | [`exercises/nextjs-learning/README.md`](./nextjs-learning/README.md) |
-| **`realtime-deal-room/`** | **Live Operator Coordination Transport** | Short/long polling vs SSE vs WebSockets for presence, escalations, and collaborative operations updates | 🟢 Ready | [`exercises/realtime-deal-room/README.md`](./realtime-deal-room/README.md) |
-| **`rest-api-trading/`** | **Command/Query APIs for Trading & Ops** | HTTP methods, resource URI hierarchies, param placement (path/query/body), idempotency keys, IDOR prevention, precision money | 🟢 Ready | [`exercises/rest-api-trading/README.md`](./rest-api-trading/README.md) |
+| **`proto-learning/`** | **Protobuf & gRPC Contract Design** | Schema design, enums, `oneof`, repeated fields, schema evolution, streaming RPCs | 🟢 Ready | [`exercises/proto-learning/README.md`](./proto-learning/README.md) |
+| **`nextjs-learning/`** | **Next.js App Router Dashboard Architecture** | RSC vs client boundaries, Suspense streaming, Server Actions, cache invalidation, parallel/intercepting routes | 🟢 Ready | [`exercises/nextjs-learning/README.md`](./nextjs-learning/README.md) |
+| **`realtime-deal-room/`** | **Real-Time Collaboration Transport Design** | Short/long polling vs SSE vs WebSockets for low-latency collaborative systems | 🟢 Ready | [`exercises/realtime-deal-room/README.md`](./realtime-deal-room/README.md) |
+| **`rest-api-trading/`** | **REST API Design: Stock Trading & Orders** | HTTP methods, resource URI hierarchies, param placement (path/query/body), idempotency keys, IDOR prevention, precision money | 🟢 Ready | [`exercises/rest-api-trading/README.md`](./rest-api-trading/README.md) |
 
 ---
 

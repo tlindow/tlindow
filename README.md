@@ -72,10 +72,10 @@ Eliminate cognitive friction at `Hello World!`, bridge technical communication d
 
 ### 🧪 Active Technical Katas (`exercises/`)
 
-- [`proto-learning/`](./exercises/proto-learning/) — Settlement and ledger event contracts, precision money, streaming RPCs
-- [`nextjs-learning/`](./exercises/nextjs-learning/) — Agent-first operations dashboard UI, RSC boundaries, streaming control-plane flows
-- [`realtime-deal-room/`](./exercises/realtime-deal-room/) — Polling vs. SSE vs. WebSockets for live operator coordination and updates
-- [`rest-api-trading/`](./exercises/rest-api-trading/) — Command/query trading APIs, idempotency keys, IDOR security prevention
+- [`proto-learning/`](./exercises/proto-learning/) — Protobuf and gRPC contract design, schema evolution, streaming RPCs
+- [`nextjs-learning/`](./exercises/nextjs-learning/) — Next.js App Router dashboard architecture, RSC boundaries, streaming UI flows
+- [`realtime-deal-room/`](./exercises/realtime-deal-room/) — Polling vs. SSE vs. WebSockets for collaborative real-time systems
+- [`rest-api-trading/`](./exercises/rest-api-trading/) — REST stock trading APIs, idempotency keys, IDOR security prevention
 
 ---
 

@@ -1,12 +1,12 @@
-# Protobuf Mastery: Merchant Settlements & Payout Rails
+# Protobuf Mastery: Service Contracts & Streaming Events
 
-> **Original interview answer:** Design exact financial contracts and streaming events.
+> **Original interview answer:** Design exact service contracts and streaming events.
 
 Welcome to the interactive Protobuf (`.proto`) tutorial. This hands-on exercise is designed around **B2B Merchant Settlements, Bank Account Routing, Fee Pricing Schedules, and Ledger Payouts**.
 
 Instead of reading static syntax documentation, you learn Protobuf by actively typing and designing production-grade schemas.
 
-Within the broader **agent-first financial operations dashboard**, this track is the contract layer that defines settlement batches, payout destinations, and live ledger events consumed by upstream APIs, agents, and dashboards.
+The underlying design question here is generic: **how do you model exact wire contracts, schema evolution, and streaming events cleanly?** The merchant-settlement domain is just the translation layer used in this repo to make the contract trade-offs concrete.
 
 ---
 

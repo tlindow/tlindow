@@ -6,7 +6,7 @@
 
 Develop a deep, intuitive understanding of real-time client-server communication architectures so you can answer this core system design question by hand with precision:
 
-Within the broader **agent-first financial operations dashboard**, this track is the live coordination layer where operators, analysts, and agents share presence, room state, escalations, and streaming updates during active financial workflows.
+The underlying design question here is generic: **what transport should power low-latency collaborative systems?** The deal-room framing is just the translation layer for practicing the transport trade-offs.
 
 > **Scenario:**  
 > You are building a real-time collaborative app (like **CoderPad**, **Excalidraw**, or a multi-trader **Deal Room**). About **10 participants** collaborate in the same session at once.
