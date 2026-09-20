@@ -5,6 +5,8 @@ Mentor feedback (already in [`../outer-loop.md`](../outer-loop.md)): the last mo
 
 Formation Client↔Server / server-to-client mapping is a **secondary** column. Existing labs are **linked, not rewritten**.
 
+**Pre-Wed Kevin warm-up:** Wed Sep 23 4–5pm PDT Formation Design Drills (Advanced Client/Server, Kevin Farst) — sole 20–30 min sheet: [`wed-kevin-warmup.md`](./wed-kevin-warmup.md).
+
 > *"As software engineers, typing IS learning. When we type, we embody the code, the software. If we outsource our typing, we outsource our learning."*
 
 ---
