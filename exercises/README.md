@@ -5,6 +5,10 @@ tutorials** designed exclusively for personal learning and deep skill-building.
 It lives in this profile repo (rather than the personal site repo) so it sits
 alongside the README that highlights technical strengths.
 
+Together, these tracks now ladder into one umbrella system: an **agent-first
+financial operations dashboard** spanning contracts, APIs, real-time
+coordination, and the control-plane UI.
+
 > *"As software engineers, typing IS learning. When we type, we are embodying
 > the code, the software. If we outsource our typing, we outsource our
 > learning."*
@@ -17,10 +21,10 @@ Choose a learning track below and dive into the respective exercise folder:
 
 | Track | Topic | Focus Areas | Status | Start Here |
 | :--- | :--- | :--- | :--- | :--- |
-| **`proto-learning/`** | **Protobuf & gRPC B2B Settlements** | Precision money structures, proto3 enums, `oneof` polymorphic bank payout rails, repeated fee items, streaming RPCs | 🟢 Ready | [`exercises/proto-learning/README.md`](./proto-learning/README.md) |
-| **`nextjs-learning/`** | **Next.js App Router: Ledger & Streaming Architecture** | RSC vs client boundaries, Suspense streaming, Server Actions, cache invalidation, parallel/intercepting routes | 🟢 Ready | [`exercises/nextjs-learning/README.md`](./nextjs-learning/README.md) |
-| **`realtime-deal-room/`** | **Real-Time Collaboration Transport Design** | Short/long polling vs SSE vs WebSockets for a live syndicated bookbuild deal room (~10 concurrent desk participants) | 🟢 Ready | [`exercises/realtime-deal-room/README.md`](./realtime-deal-room/README.md) |
-| **`rest-api-trading/`** | **REST API Design: Stock Trading & Orders** | HTTP methods, resource URI hierarchies, param placement (path/query/body), idempotency keys, IDOR prevention, precision money | 🟢 Ready | [`exercises/rest-api-trading/README.md`](./rest-api-trading/README.md) |
+| **`proto-learning/`** | **Settlement & Ledger Event Contracts** | Precision money structures, proto3 enums, `oneof` payout rails, repeated fee items, streaming settlement events | 🟢 Ready | [`exercises/proto-learning/README.md`](./proto-learning/README.md) |
+| **`nextjs-learning/`** | **Agent Control Plane UI** | RSC vs client boundaries, Suspense streaming, Server Actions, cache invalidation, parallel/intercepting routes | 🟢 Ready | [`exercises/nextjs-learning/README.md`](./nextjs-learning/README.md) |
+| **`realtime-deal-room/`** | **Live Operator Coordination Transport** | Short/long polling vs SSE vs WebSockets for presence, escalations, and collaborative operations updates | 🟢 Ready | [`exercises/realtime-deal-room/README.md`](./realtime-deal-room/README.md) |
+| **`rest-api-trading/`** | **Command/Query APIs for Trading & Ops** | HTTP methods, resource URI hierarchies, param placement (path/query/body), idempotency keys, IDOR prevention, precision money | 🟢 Ready | [`exercises/rest-api-trading/README.md`](./rest-api-trading/README.md) |
 
 ---
 
@@ -37,6 +41,7 @@ Each exercise track lives in its own subdirectory and contains:
 1. Open the exercise file in your editor.
 2. Work through the challenges step-by-step, typing out schemas or implementations.
 3. Review and reflect on the architectural trade-offs (data types, serialization, wire performance, API contracts, latency/consistency tradeoffs).
+4. Practice the one-sentence **original interview answer** at the top of each track so you can still answer the prompt concisely before diving deeper.
 
 ---
 

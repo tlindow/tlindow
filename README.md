@@ -72,10 +72,10 @@ Eliminate cognitive friction at `Hello World!`, bridge technical communication d
 
 ### 🧪 Active Technical Katas (`exercises/`)
 
-- [`proto-learning/`](./exercises/proto-learning/) — Protobuf & gRPC B2B settlements, precision money, streaming RPCs
-- [`nextjs-learning/`](./exercises/nextjs-learning/) — Next.js App Router streaming ledger, RSC boundaries, server actions
-- [`realtime-deal-room/`](./exercises/realtime-deal-room/) — Polling vs. SSE vs. WebSockets for live syndicated deal rooms
-- [`rest-api-trading/`](./exercises/rest-api-trading/) — REST stock trading APIs, idempotency keys, IDOR security prevention
+- [`proto-learning/`](./exercises/proto-learning/) — Settlement and ledger event contracts, precision money, streaming RPCs
+- [`nextjs-learning/`](./exercises/nextjs-learning/) — Agent-first operations dashboard UI, RSC boundaries, streaming control-plane flows
+- [`realtime-deal-room/`](./exercises/realtime-deal-room/) — Polling vs. SSE vs. WebSockets for live operator coordination and updates
+- [`rest-api-trading/`](./exercises/rest-api-trading/) — Command/query trading APIs, idempotency keys, IDOR security prevention
 
 ---
 
@@ -94,4 +94,3 @@ export DATA_WAREHOUSE="Snowflake (enterprise corporate analytical backbone)"
 export LANGUAGES="JavaScript / Node.js by eye • Python / Flask by craft"
 export COMMUNITY="Luma > Meetup"
 ```
-

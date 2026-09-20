@@ -1,8 +1,12 @@
 # 📈 REST API Design: Robinhood-Style Stock Trading Platform
 
+> **Original interview answer:** Design safe idempotent trading and operations APIs.
+
 Welcome to the hands-on **Stock Trading REST API Design** exercise.
 
 In this track, you will design the public and client-facing HTTP contracts for a high-throughput retail trading application (like Robinhood). You will convert high-level domain actions into production-ready, RESTful interfaces that satisfy enterprise constraints: precision financial types, cacheability, idempotency, security against IDOR, and strict HTTP semantics.
+
+Within the broader **agent-first financial operations dashboard**, this track is the command/query API layer that serves both client workflows and operator interventions across orders, quotes, and operational actions.
 
 > *"As software engineers, typing IS learning. When we type, we are embodying the code, the software. If we outsource our typing, we outsource our learning."*
 
