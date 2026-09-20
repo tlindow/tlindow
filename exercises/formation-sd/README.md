@@ -1,144 +1,171 @@
 # Formation System-Design Track
 
-Ordered hands-on labs mapped to **Formation Client↔Server / server-to-client** prep.
-Sequence Labs 1–3 first (transport intuition → connection lifecycle → request contracts).
-Queued labs stay stubbed until those three are solid.
+North star: **system design interview phases**, not module titles.
+Mentor feedback (already in [`../outer-loop.md`](../outer-loop.md)): the last mock stalled in exploration — UI minutiae and waiting for interviewer direction. Lead **Requirements → Core APIs → Architecture → Bottlenecks** from minute one.
+
+Formation Client↔Server / server-to-client mapping is a **secondary** column. Existing labs are **linked, not rewritten**.
 
 > *"As software engineers, typing IS learning. When we type, we embody the code, the software. If we outsource our typing, we outsource our learning."*
 
-This track **does not rewrite** existing labs. Lab 1 and Lab 3 live in their original folders; Lab 2 is new here.
+---
+
+## Interview phase map
 
 ```text
-Lab 1  realtime-deal-room/     push vs pull (polling / SSE / WebSockets)
-   ↓
-Lab 2  connection-lifecycle/   heartbeat, reconnect+backoff, seq catch-up
-   ↓
-Lab 3  rest-api-trading/       client→server REST, retries, idempotency
-   ↓
-queued stubs                   storage → cache → backpressure → fan-out → mock interview
+Phase A  Clarifying / Exploration     NEW  exploration-discipline/     (15–20 min written)
+Phase B  API contracts                     rest-api-trading/           (type the HTTP specs)
+Phase C  Realtime / client-server          deal-room + lifecycle       (push vs pull, then reconnect)
+Phase D  Storage                           queued stub
+Phase E  Scaling                           queued stub
+Phase F  Failure modes                     queued stub
+```
+
+| Phase | Interview job | Lab | Formation module (secondary) | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **A** Clarifying / Exploration | Quantify NFRs, state assumptions, own the agenda — **no UI** | [`exploration-discipline/`](./exploration-discipline/) | Warm-up / 4-step framework | 🟢 Ready |
+| **B** API contracts | Entities + request/response before boxes | [`../rest-api-trading/`](../rest-api-trading/) (`exercise_trading_api.md`) | Client→server REST | 🟢 Ready (remediation lane) |
+| **C** Realtime / client-server | How updates move; what happens when the socket dies | [`../realtime-deal-room/`](../realtime-deal-room/) + [`connection-lifecycle/`](./connection-lifecycle/) | Server-to-client transports + connection lifecycle | 🟢 Ready |
+| **D** Storage | What is durable vs a bounded replay buffer | queued stub | Persistent stores | ⏳ Stub |
+| **E** Scaling | Fan-out, cache, many connection servers | queued stub | Caching / multi-service | ⏳ Stub |
+| **F** Failure modes | Idempotency, retries, partitions, backpressure | queued stub | Deep dives | ⏳ Stub |
+
+Start at **Phase A** every session until you can narrate the 4-step framework cold. Then B (contracts) and C (realtime). D–F stay stubbed.
+
+```mermaid
+flowchart LR
+    A["A Exploration"] --> B["B API contracts"]
+    B --> C["C Realtime"]
+    C --> D["D Storage"]
+    D --> E["E Scaling"]
+    E --> F["F Failure modes"]
 ```
 
 ---
 
-## Lab 1 — Realtime deal room transports
+## Phase A — Clarifying / Exploration (new)
 
-**Folder:** [`../realtime-deal-room/`](../realtime-deal-room/) (existing, do not rewrite)
+**Folder:** [`./exploration-discipline/`](./exploration-discipline/)
 
 ### Intuition it builds
-Push vs pull. Why polling feels laggy, why SSE is a one-way radio, why WebSockets win for bidirectional high-frequency rooms — and what you pay in connection state.
+The first five minutes decide the interview. You quantify the system (read/write ratio, SLA, retention) and name entities **before** editor chrome. You drive the next phase; you do not ask the interviewer what to do next.
 
-### Formation mapping
-Client↔Server / server-to-client: *how does the server get updates to the client?* Interviewers want a justified transport, not a default of “just use WebSockets.”
+### Interview mapping
+Phase A is the remediation for the mentor mock: *technical judgment showed up after prompting; time went to image buttons and draft-save intervals.*
 
-Typical prompts this lab trains:
-- How would ~10 desks see allocation edits and market ticks with low latency?
-- When is short polling enough? When do you need SSE? When do you need a socket?
-- What is the overhead of HTTP headers vs WebSocket frames?
+### Formation mapping (secondary)
+4-step framework warm-up. Not a Client↔Server transport lab.
 
 ### How to run
+```bash
+# no server — open the markdown and start a 15–20 min timer
+# type into [STEP] blocks in order; do not skip to boxes
+```
+
+Open [`exploration-discipline/drill.md`](./exploration-discipline/drill.md).
+
+### Done when
+- You can narrate Requirements → APIs → Architecture → Bottlenecks **cold**, without notes.
+- The drill has numbers and contracts **above** any box diagram.
+- The anti-pattern checklist is all unchecked (no UI detour, no “what next?”).
+
+---
+
+## Phase B — API contracts
+
+**Folder:** [`../rest-api-trading/`](../rest-api-trading/) (existing, do not rewrite)
+
+Remediation lane already in progress: type [`exercise_trading_api.md`](../rest-api-trading/exercise_trading_api.md) and [`trading_api_contract.ts`](../rest-api-trading/trading_api_contract.ts).
+
+### Intuition it builds
+Request/response contracts. Resource URIs, param placement, retries that must not double-submit a buy, IDOR on order reads.
+
+### Interview mapping
+Phase B is “core domain + APIs” — the interviewer should hear method, path, and failure codes **before** Redis or a matching engine.
+
+### Formation mapping (secondary)
+Client↔Server request design (not the push path).
+
+### Done when
+- All five actions have method, path, param placement, and status codes.
+- Place-order is idempotent under retry; list-orders does not trust client-supplied user ids blindly.
+
+---
+
+## Phase C — Realtime / client-server
+
+Two labs, in this order. Do not rewrite either folder.
+
+### C1 — Transports (deal room)
+
+**Folder:** [`../realtime-deal-room/`](../realtime-deal-room/)
+
+Push vs pull. Why polling feels laggy, why SSE is a one-way radio, why WebSockets win for bidirectional high-frequency rooms — and what you pay in connection state.
+
 ```bash
 cd exercises/realtime-deal-room
 npm install
 npm run compare
 ```
 
-### Done when
-- You can explain polling vs SSE vs WebSockets using the printed metrics (request count, header overhead, latency).
-- You can defend a transport for a bidirectional deal room *and* name a case where SSE + REST is the better fit.
-- [`SOLUTION.md`](../realtime-deal-room/SOLUTION.md) has your recommendation in your own words.
+**Done when:** you can defend a transport from the printed metrics *and* name a case where SSE + REST is enough.
 
----
+### C2 — Connection lifecycle
 
-## Lab 2 — Connection lifecycle (this PR)
+**Folder:** [`./connection-lifecycle/`](./connection-lifecycle/)
 
-**Folder:** [`./connection-lifecycle/`](./connection-lifecycle/) (new)
+Heartbeats, exponential backoff reconnect, monotonic `seq` catch-up — the follow-up after transport choice.
 
-### Intuition it builds
-A live socket is not “set and forget.” Connections die (Wi-Fi blip, laptop sleep, half-open TCP). You detect death with **heartbeats**, redial with **exponential backoff**, and fill the hole with a **monotonic `seq`** instead of reloading the whole world.
-
-### Formation mapping
-The follow-up after transport choice: *what happens when the client disconnects mid-stream?* This is the reliability half of server-to-client design — the deal-room lab mentions replay; this lab makes you implement it.
-
-Typical prompts this lab trains:
-- How do you know a WebSocket is dead if `onclose` never fires?
-- Why backoff (and jitter) instead of reconnecting immediately?
-- How does the client resume without a full snapshot resync?
-
-### How to run
 ```bash
 cd exercises/formation-sd/connection-lifecycle
 npm install
-npm run sim          # working reference: prints reconnect / catch-up metrics
-npm start            # starter server (your TODOs)
+npm run sim
 ```
 
-Work in `starter/`. Compare against `reference/` only after you have typed a draft.
+Work in `starter/`. Compare `reference/` only after a draft.
 
-### Done when
-- `npm run sim` prints heartbeat interval, reconnect time, and missed events recovered.
-- Your starter client reconnects with backoff and fills the `seq` gap (REST `/events?since=` or WS `catchup`) without replacing the whole tape.
-- [`SOLUTION.md`](./connection-lifecycle/SOLUTION.md) records the tradeoffs in your words.
+**Done when:** `npm run sim` prints heartbeat interval, reconnect time, and missed events recovered; your starter fills `seq` gaps without a full snapshot.
 
----
-
-## Lab 3 — REST trading API (client → server)
-
-**Folder:** [`../rest-api-trading/`](../rest-api-trading/) (existing, do not rewrite)
-
-### Intuition it builds
-The other direction: request/response contracts. Resource URIs, where params live, retries that must not double-submit a buy, and IDOR on order reads.
-
-### Formation mapping
-Client↔Server request design (not the push path). After Labs 1–2 you can talk about streams; Lab 3 is “the client called us, the network retried, what is the contract?”
-
-Typical prompts this lab trains:
-- `GET` quote vs `POST` order — safety, cacheability, status codes.
-- Where does `Idempotency-Key` live, and what store do you need?
-- Why `GET /users/{userId}/orders` from a mobile client is an IDOR trap.
-
-### How to run
-Open [`exercise_trading_api.md`](../rest-api-trading/exercise_trading_api.md) and [`trading_api_contract.ts`](../rest-api-trading/trading_api_contract.ts). Type the contracts; do not paste.
-
-### Done when
-- All five actions have method, path, param placement, and status codes.
-- Place-order is idempotent under retry; list-orders does not trust client-supplied user ids blindly.
-- You can walk an interviewer through retry + IDOR without notes.
+### Formation mapping (secondary)
+Server-to-client: *how does the server get updates to the client, and what happens when the socket dies?*
 
 ---
 
-## Queued (titles + goals only)
+## Phase D (queued) — Storage
 
-No implementations yet. After Labs 1–3, pick these up in order.
+No implementation yet.
 
-### Lab 4 (queued) — Persistent Storage
 - When the in-memory event log is not enough (process restart, multi-instance).
-- What belongs in a write-ahead log / DB vs what can stay in a bounded replay buffer.
-- How snapshot + seq log lets a client catch up after the buffer has wrapped.
+- What belongs in a write-ahead log / DB vs a bounded replay buffer.
+- Snapshot + `seq` log after the buffer wraps; blob store for bodies vs relational metadata.
 
-### Lab 5 (queued) — Caching
-- What is safe to cache (quotes) vs what must be fresh (working orders, positions).
-- TTL, ETag / `If-None-Match`, and where a CDN is allowed to sit.
-- Cache invalidation after a write so Lab 3 reads do not lie.
+---
 
-### Lab 6 (queued) — Rate Limiting / Backpressure
-- Protecting a hot stream when one slow client or noisy desk floods the socket.
-- Token bucket vs leaky bucket vs per-connection in-flight caps.
-- What the client sees: `429`, dropped ticks, or a degraded poll fallback.
+## Phase E (queued) — Scaling
 
-### Lab 7 (queued) — Multi-service / Fan-out
-- One producer (matching / market-data) → many connection servers.
-- Pub/sub vs sticky sessions; who owns the `seq`.
-- Fan-out on write vs fan-out on read for presence and last-sale.
+No implementation yet.
 
-### Lab 8 (queued) — End-to-end practice interview
-- 35–40 minutes: requirements → APIs → architecture → failure modes (Formation 4-step).
-- Combine Labs 1–3 in one prompt (live blotter + place order + disconnect).
-- Practice owning the tradeoffs out loud before the interviewer asks.
+- Fan-out on write vs read (feeds, presence, last-sale).
+- Cache/CDN for read-heavy GETs; who invalidates after publish.
+- Many connection servers: pub/sub vs sticky sessions; who owns `seq`.
+
+---
+
+## Phase F (queued) — Failure modes
+
+No implementation yet. The deep-dive phase: pick **one** and go to the metal.
+
+- Idempotency under retries (link back to Phase B place-order).
+- Partitions and split-brain on a live room.
+- Backpressure / 429 vs dropped ticks vs degraded poll.
+- Cache stampedes and replay-buffer wrap.
+
+A 35–40 min mock is just A→F on a clock. Do not wait for a new repo to practice that.
 
 ---
 
 ## Practice workflow
 
-1. Type Lab 2 starter steps yourself; use `reference/` as an answer key, not a first draft.
-2. Keep altitude: transport and lifecycle before UI chrome ([`../outer-loop.md`](../outer-loop.md)).
-3. Pair on syntax/TODOs with [`../inner-loop.md`](../inner-loop.md) — hints, not pasted solutions.
+1. Phase A on a timer until the 4-step is automatic ([`../outer-loop.md`](../outer-loop.md)).
+2. Phase B: type the trading contracts; do not paste.
+3. Phase C: deal-room `compare`, then lifecycle `starter/` STEPs — `reference/` is the answer key, not the first draft.
+4. Pair syntax with [`../inner-loop.md`](../inner-loop.md); keep altitude with the outer-loop agent.

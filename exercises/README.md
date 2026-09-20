@@ -17,7 +17,7 @@ Choose a learning track below and dive into the respective exercise folder:
 
 | Track | Topic | Focus Areas | Status | Start Here |
 | :--- | :--- | :--- | :--- | :--- |
-| **`formation-sd/`** | **Formation system-design practice (Client↔Server)** | Ordered labs for Formation server-to-client / request-design prep: transports → connection lifecycle → REST contracts, plus queued storage/cache/backpressure stubs | 🟢 Ready (Labs 1–3) | [`exercises/formation-sd/README.md`](./formation-sd/README.md) |
+| **`formation-sd/`** | **System design interview phases** (Formation secondary) | Phase A exploration discipline → B API contracts (`rest-api-trading`) → C realtime (deal-room + connection-lifecycle) → queued D storage / E scaling / F failure modes | 🟢 Ready (A–C) | [`exercises/formation-sd/README.md`](./formation-sd/README.md) |
 | **`proto-learning/`** | **Protobuf & gRPC B2B Settlements** | Precision money structures, proto3 enums, `oneof` polymorphic bank payout rails, repeated fee items, streaming RPCs | 🟢 Ready | [`exercises/proto-learning/README.md`](./proto-learning/README.md) |
 | **`nextjs-learning/`** | **Next.js App Router: Ledger & Streaming Architecture** | RSC vs client boundaries, Suspense streaming, Server Actions, cache invalidation, parallel/intercepting routes | 🟢 Ready | [`exercises/nextjs-learning/README.md`](./nextjs-learning/README.md) |
 | **`realtime-deal-room/`** | **Real-Time Collaboration Transport Design** | Short/long polling vs SSE vs WebSockets for a live syndicated bookbuild deal room (~10 concurrent desk participants) | 🟢 Ready | [`exercises/realtime-deal-room/README.md`](./realtime-deal-room/README.md) |
@@ -35,10 +35,12 @@ Each exercise track lives in its own subdirectory and contains:
    `formation-sd/connection-lifecycle/`) working reference implementations to
    compare hands-on.
 
-The **Formation** hub (`formation-sd/`) is an ordered curriculum: it links Lab 1
-(`realtime-deal-room/`) and Lab 3 (`rest-api-trading/`) and adds Lab 2
-(`formation-sd/connection-lifecycle/`) plus queued stubs. Start there if you are
-drilling Client↔Server / server-to-client interview questions.
+The **`formation-sd/`** hub is mapped to **interview phases** (Requirements →
+APIs → Architecture → Bottlenecks), with Formation Client↔Server modules as a
+secondary column. Phase A is a new timed written lab
+(`formation-sd/exploration-discipline/`). Phases B and C **link**
+`rest-api-trading/` and `realtime-deal-room/` (plus `connection-lifecycle/`)
+without rewriting those folders. D–F are queued stubs.
 
 ### Recommended Learning Workflow
 1. Open the exercise file in your editor.
