@@ -1,0 +1,15 @@
+{
+  "name": "formation-sd-connection-lifecycle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Formation Lab 2: WebSocket heartbeats, reconnect backoff, seq catch-up",
+  "scripts": {
+    "start": "node starter/server.js",
+    "start:ref": "node reference/server.js",
+    "sim": "node scripts/sim.js",
+    "sim:mine": "node scripts/sim.js --target=starter"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
