@@ -1,6 +1,6 @@
 # 🎯 Learning Exercises
 
-This directory contains **hands-on technical exercises, katas, and interactive
+This directory contains **hands-on technical exercises, labs, and interactive
 tutorials** designed exclusively for personal learning and deep skill-building.
 It lives in this profile repo (rather than the personal site repo) so it sits
 alongside the README that highlights technical strengths.

@@ -8,7 +8,7 @@
   <p>
     <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Portfolio-tlindow.github.io-C084FC?style=flat-square&logo=google-chrome&logoColor=white" alt="Portfolio" /></a>
     <a href="https://www.linkedin.com/in/tlindow/"><img src="https://img.shields.io/badge/LinkedIn-Tyler%20Lindow-FACC15?style=flat-square&logo=linkedin&logoColor=000" alt="LinkedIn" /></a>
-    <a href="./exercises/README.md"><img src="https://img.shields.io/badge/Technical%20Katas-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000" alt="Technical Katas" /></a>
+    <a href="./exercises/README.md"><img src="https://img.shields.io/badge/Technical%20Labs-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000" alt="Technical Labs" /></a>
     <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square" alt="Role" /></a>
     <img src="https://img.shields.io/badge/Platform%20Reliability-99.99%25-4ADE80?style=flat-square&logoColor=000" alt="Platform Reliability" />
     <img src="https://img.shields.io/badge/Typing%20Coverage-12.5%25%20PASS%20(%E2%89%A510%25)-10B981?style=flat-square" alt="Typing Coverage PASS" />
@@ -38,7 +38,7 @@ Eliminate cognitive friction at `Hello World!`, bridge technical communication d
 
 - **Portfolio:** [tlindow.github.io](https://tlindow.github.io/)
 - **Network:** [linkedin.com/in/tlindow](https://www.linkedin.com/in/tlindow/)
-- **Technical Katas:** [`exercises/README.md`](./exercises/README.md)
+- **Technical Labs:** [`exercises/README.md`](./exercises/README.md)
 
 ---
 
@@ -70,7 +70,7 @@ Eliminate cognitive friction at `Hello World!`, bridge technical communication d
 
 ---
 
-### 🧪 Active Technical Katas (`exercises/`)
+### 🧪 Active Technical Labs (`exercises/`)
 
 - [`proto-learning/`](./exercises/proto-learning/) — Protobuf & gRPC B2B settlements, precision money, streaming RPCs
 - [`nextjs-learning/`](./exercises/nextjs-learning/) — Next.js App Router streaming ledger, RSC boundaries, server actions
