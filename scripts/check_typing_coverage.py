@@ -39,9 +39,9 @@ KNOWN_HAND_FILES = {
     "exercises/realtime-deal-room/learnings.md",
 }
 
-# Known kata exercises where human wrote the solution within an AI-generated scaffold
+# Known lab exercises where human wrote the solution within an AI-generated scaffold
 KNOWN_PARTIAL_FILES = {
-    # Proto kata: Schema starting after kata instructions delimiter (line 42)
+    # Proto lab: Schema starting after lab instructions delimiter (line 42)
     "exercises/proto-learning/p2p_payment_service.proto": {
         "type": "after_last_marker",
         "marker": "// ============================================================================"

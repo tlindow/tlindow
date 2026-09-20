@@ -1,6 +1,6 @@
 # 🎯 Exercise: Stock Trading REST API Contract Design
 
-Welcome to your hands-on REST API design kata. Type your answers directly into the designated `[YOUR SPECIFICATION HERE]` blocks below.
+Welcome to your hands-on REST API design lab. Type your answers directly into the designated `[YOUR SPECIFICATION HERE]` blocks below.
 
 Remember: **Typing IS learning.** Resisting the urge to copy-paste or skim helps lock in HTTP semantics, resource naming instincts, and production API design patterns.
 

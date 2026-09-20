@@ -76,7 +76,7 @@
   <text x="56" y="1101" class="h-text">⚡ The Builder  <tspan class="title-role">(exercises/inner-loop.md)</tspan></text>
   <text x="56" y="1127" class="b-muted">Hands-on Socratic code partner  •  Syntax &amp; types  •  Never writes fix directly</text>
   <line x1="40" y1="1179" x2="840" y2="1179" class="divider" />
-  <text x="40" y="1214" class="sec-label">🧪 ACTIVE TECHNICAL KATAS (exercises/)</text>
+  <text x="40" y="1214" class="sec-label">🧪 ACTIVE TECHNICAL LABS (exercises/)</text>
   <text x="40" y="1246" class="highlight">• proto-learning/</text>
   <text x="240" y="1246" class="b-muted">Protobuf &amp; gRPC B2B settlements, precision money, streaming RPCs</text>
   <text x="40" y="1278" class="highlight">• nextjs-learning/</text>
