@@ -117,9 +117,10 @@ async function main() {
     client.disconnect();
     await sleep(80);
 
-    const recovered = stats.recovered;
+    const viaReplay = stats.recovered;
     const reconnectMs = stats.reconnectMs;
-    const gapFilled = stats.lastSeq >= seqWhileDown && recovered > 0;
+    const filledAfterDrop = [...stats.seen].filter((s) => s > dropSeq && s <= seqWhileDown).length;
+    const gapFilled = missedExpected > 0 && filledAfterDrop === missedExpected;
 
     console.log('');
     console.log('================================================================');
@@ -133,7 +134,7 @@ async function main() {
     console.log(`  Reconnect attempts:       ${stats.backoffSchedule.length}`);
     console.log(`  Backoff schedule:         ${stats.backoffSchedule.join(' → ') || '(none)'}`);
     console.log(`  Reconnect time:           ${reconnectMs == null ? 'DID NOT RECONNECT' : `${reconnectMs} ms`}`);
-    console.log(`  Missed events recovered:  ${recovered}`);
+    console.log(`  Missed events recovered:  ${filledAfterDrop} of ${missedExpected}  (${viaReplay} via replay/HTTP catch-up)`);
     console.log(`  REST /events?since=:      HTTP ${restCatchup.status || 'n/a'}  (${restCatchup.count} events)`);
     console.log(`  Client seq after catch-up: ${stats.lastSeq}`);
     console.log(`  Server seq now:           ${serverAfter.seq}`);
