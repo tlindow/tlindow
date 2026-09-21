@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check measured coverage and the generated bar
-        run: make coverage-svg-check
+        run: make coverage-bar-check

@@ -1,9 +1,9 @@
-.PHONY: coverage-svg coverage-svg-check
+.PHONY: coverage-bar coverage-bar-check
 
-# Rebuild assets/coverage-bar.svg from the full working tree.
-coverage-svg:
-	python3 scripts/check_typing_coverage.py --write-svg assets/coverage-bar.svg
+# Rewrite the README provenance bar from the full working tree.
+coverage-bar:
+	python3 scripts/check_typing_coverage.py --write-bar
 
-# Fail when the committed bar does not match the measured working tree.
-coverage-svg-check:
-	python3 scripts/check_typing_coverage.py --check-svg assets/coverage-bar.svg
+# Fail when the committed README bar does not match the measured working tree.
+coverage-bar-check:
+	python3 scripts/check_typing_coverage.py --check-bar
