@@ -1,0 +1,14 @@
+name: Typing coverage
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  coverage-bar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check measured coverage and the generated bar
+        run: make coverage-svg-check
