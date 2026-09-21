@@ -6,11 +6,10 @@
   <p><strong>Tyler Lindow (@tlindow)</strong> · Engineering Management</p>
 
   <p>
-    <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Portfolio-tlindow.github.io-C084FC?style=flat-square&logo=google-chrome&logoColor=white" alt="Portfolio" /></a>
+    <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Marketing%20site-tlindow.github.io-C084FC?style=flat-square&logo=google-chrome&logoColor=white" alt="Marketing site" /></a>
     <a href="https://www.linkedin.com/in/tlindow/"><img src="https://img.shields.io/badge/LinkedIn-Tyler%20Lindow-FACC15?style=flat-square&logo=linkedin&logoColor=000" alt="LinkedIn" /></a>
     <a href="./exercises/README.md"><img src="https://img.shields.io/badge/Technical%20Labs-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000" alt="Technical Labs" /></a>
     <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square" alt="Role" /></a>
-    <img src="https://img.shields.io/badge/Platform%20Reliability-99.99%25-4ADE80?style=flat-square&logoColor=000" alt="Platform Reliability" />
     <img src="https://img.shields.io/badge/Typing%20Coverage-12.5%25%20PASS%20(%E2%89%A510%25)-10B981?style=flat-square" alt="Typing Coverage PASS" />
   </p>
 </div>
@@ -31,14 +30,14 @@
 
 ---
 
-### 🎯 Directive & Mission
+### 🎯 Deepen
 
-**The Conceptual Translator**  
-Eliminate cognitive friction at `Hello World!`, bridge technical communication divides across engineering and product, and ensure everyone gets along (*"No more code monkeys!"* 🏳️‍🌈).
+**Engineering management craft, and the labs that practice it.**  
+Start at the [marketing site](https://tlindow.github.io/). This profile is the next step: how that craft is led, and personal system-design labs to type through.
 
-- **Portfolio:** [tlindow.github.io](https://tlindow.github.io/)
+- **Marketing site:** [tlindow.github.io](https://tlindow.github.io/)
 - **Network:** [linkedin.com/in/tlindow](https://www.linkedin.com/in/tlindow/)
-- **Technical Labs:** [`exercises/README.md`](./exercises/README.md)
+- **Labs:** [`exercises/README.md`](./exercises/README.md)
 
 ---
 
@@ -47,8 +46,8 @@ Eliminate cognitive friction at `Hello World!`, bridge technical communication d
 1. **System Architecture as Sculpting**  
    Top-down AI generation; human craftsmanship meticulously chips away excess logic to construct sustainable, resilient distributed architectures.
 
-2. **Domain-Driven Reliability (99.99% Availability)**  
-   Architectural choices must anchor to core business value. Mediated platform re-architecture at Affirm to enforce strict domain separation unlocking 99.99% uptime.
+2. **Domain-Driven Reliability**  
+   Architectural choices must anchor to core business value. Mediated platform re-architecture at Affirm to enforce strict domain separation: groundwork toward a 99.99% availability target.
 
 3. **First-Principles GenAI Upskilling**  
    "Learning-by-doing" pedagogy to debunk misconceptions and systematically de-risk catastrophic production failure modes.
@@ -71,6 +70,8 @@ Eliminate cognitive friction at `Hello World!`, bridge technical communication d
 ---
 
 ### 🧪 Active Technical Labs (`exercises/`)
+
+Personal system-design and craft learning labs. This directory is practice, not Affirm production work.
 
 - [`proto-learning/`](./exercises/proto-learning/) — Protobuf & gRPC B2B settlements, precision money, streaming RPCs
 - [`nextjs-learning/`](./exercises/nextjs-learning/) — Next.js App Router streaming ledger, RSC boundaries, server actions

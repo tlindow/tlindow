@@ -46,18 +46,18 @@
   <rect x="522" y="188" width="233" height="28" class="pill-bg" />
   <text x="534" y="206" class="pill-text">♿ Differently Abled</text>
   <line x1="40" y1="240" x2="840" y2="240" class="divider" />
-  <text x="40" y="275" class="sec-label">🎯 DIRECTIVE &amp; MISSION</text>
-  <text x="40" y="307" class="h-text">The Conceptual Translator</text>
-  <text x="40" y="335" class="b-text">Eliminate cognitive friction at <tspan class="highlight">Hello World!</tspan>, bridge technical communication divides</text>
-  <text x="40" y="361" class="b-text">across engineering and product, and ensure everyone gets along (<tspan class="quote-text">"No more code monkeys!"</tspan> 🏳️‍🌈).</text>
+  <text x="40" y="275" class="sec-label">🎯 DEEPEN</text>
+  <text x="40" y="307" class="h-text">Engineering management craft and labs</text>
+  <text x="40" y="335" class="b-text">Start at the marketing site (tlindow.github.io). This profile is the next step:</text>
+  <text x="40" y="361" class="b-text">how that craft is led, and personal system-design labs to type through.</text>
   <line x1="40" y1="401" x2="840" y2="401" class="divider" />
   <text x="40" y="436" class="sec-label">🧠 CORE ARCHITECTURAL PHILOSOPHY</text>
   <text x="40" y="474" class="h-text">1. System Architecture as Sculpting</text>
   <text x="40" y="500" class="b-muted">Top-down AI generation; human craftsmanship meticulously chips away excess logic</text>
   <text x="40" y="525" class="b-muted">to construct sustainable, resilient distributed architectures.</text>
-  <text x="40" y="563" class="h-text">2. Domain-Driven Reliability (99.99% Availability)</text>
+  <text x="40" y="563" class="h-text">2. Domain-Driven Reliability</text>
   <text x="40" y="589" class="b-muted">Architectural choices must anchor to core business value. Mediated platform</text>
-  <text x="40" y="614" class="b-muted">re-architecture at Affirm to enforce strict domain separation unlocking 99.99% uptime.</text>
+  <text x="40" y="614" class="b-muted">re-architecture at Affirm: groundwork toward a 99.99% availability target.</text>
   <text x="40" y="652" class="h-text">3. First-Principles GenAI Upskilling</text>
   <text x="40" y="678" class="b-muted">"Learning-by-doing" pedagogy to debunk misconceptions and systematically de-risk</text>
   <text x="40" y="703" class="b-muted">catastrophic production failure modes.</text>
@@ -76,7 +76,7 @@
   <text x="56" y="1101" class="h-text">⚡ The Builder  <tspan class="title-role">(exercises/inner-loop.md)</tspan></text>
   <text x="56" y="1127" class="b-muted">Hands-on Socratic code partner  •  Syntax &amp; types  •  Never writes fix directly</text>
   <line x1="40" y1="1179" x2="840" y2="1179" class="divider" />
-  <text x="40" y="1214" class="sec-label">🧪 ACTIVE TECHNICAL LABS (exercises/)</text>
+  <text x="40" y="1214" class="sec-label">🧪 PERSONAL CRAFT LABS (exercises/) — not Affirm production</text>
   <text x="40" y="1246" class="highlight">• proto-learning/</text>
   <text x="240" y="1246" class="b-muted">Protobuf &amp; gRPC B2B settlements, precision money, streaming RPCs</text>
   <text x="40" y="1278" class="highlight">• nextjs-learning/</text>

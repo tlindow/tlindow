@@ -1,9 +1,10 @@
 # 🎯 Learning Exercises
 
-This directory contains **hands-on technical exercises, labs, and interactive
-tutorials** designed exclusively for personal learning and deep skill-building.
-It lives in this profile repo (rather than the personal site repo) so it sits
-alongside the README that highlights technical strengths.
+This directory contains **personal system-design and craft learning labs**:
+hands-on exercises for skill-building. They are not Affirm production work.
+They live in this profile repo so they sit alongside the README that covers
+engineering management craft. The broader story is on the
+[marketing site](https://tlindow.github.io/).
 
 > *"As software engineers, typing IS learning. When we type, we are embodying
 > the code, the software. If we outsource our typing, we outsource our
