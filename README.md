@@ -15,7 +15,7 @@
 </div>
 
 <div align="center">
-  <img src="./assets/coverage-bar.svg" alt="Codebase Provenance: 87.5% AI Scaffolding, 12.5% Hand-Typed Craft" width="100%" />
+  <img src="./assets/coverage-bar.svg" alt="Codebase provenance: 87.5% AI scaffolding, 12.5% hand-typed craft. Passes; fails below 10% hand-typed." width="100%" />
 </div>
 
 ---
