@@ -17,4 +17,4 @@ fi
 python3 "$LINTER" --mode staged --threshold 10.0
 
 # The profile bar is a working-tree artifact of this linter, not part of the
-# staged check. After coverage changes, run `make coverage-svg`.
+# staged check. After coverage changes, run `make coverage-bar`.

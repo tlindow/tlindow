@@ -11,18 +11,16 @@ of the codebase must be deliberate, hand-typed craft and synthesis.
 
 Fails (exit code 1) if hand-typed coverage falls below 10.0%.
 
-assets/coverage-bar.svg is a generated view of this measurement, not a
-hand-drawn figure. Rebuild it with --write-svg (or `make coverage-svg`).
+The README provenance bar is a generated view of this measurement, not a
+hand-drawn figure. Rebuild it with --write-bar (or `make coverage-bar`).
 """
 
 import argparse
 import json
-import os
 import re
 import subprocess
 import sys
 from pathlib import Path
-from xml.sax.saxutils import escape
 
 # Minimum percentage of hand-typed code required to pass commit
 DEFAULT_THRESHOLD = 10.0
@@ -228,47 +226,20 @@ def measure_coverage(mode: str = "staged", repo_root: Path | None = None) -> dic
         "file_stats": file_stats,
     }
 
-# Profile pill. Widths are the measured line-count ratio; labels use the
-# same 2-decimal rounding as the JSON report. A 4px gutter matches the
-# hand-designed bar and is omitted when one segment is empty.
-SVG_WIDTH = 480
-SVG_BAR_GUTTER = 4
-
-SVG_STYLE = """  <style>
-    .num, .name, .caption {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      font-variant-numeric: tabular-nums;
-    }
-    .num {
-      font-size: 20px;
-      font-weight: 650;
-      fill: #1C1917;
-    }
-    .num.num-hand { fill: #146B45; }
-    .name {
-      font-size: 16px;
-      font-weight: 500;
-      fill: #57534E;
-    }
-    .caption {
-      font-size: 15px;
-      font-weight: 450;
-      fill: #57534E;
-    }
-    .bar-ai { fill: #6E5F96; }
-    .bar-hand { fill: #1F7A4D; }
-
-    @media (prefers-color-scheme: dark) {
-      .num { fill: #F4F1EA; }
-      .num.num-hand { fill: #8ED7B5; }
-      .name, .caption { fill: #C9D1D9; }
-      .bar-ai { fill: #A898D0; }
-      .bar-hand { fill: #3FA875; }
-    }
-  </style>"""
+# Profile bar. Ten cells, filled by the measured AI share (the same 2-decimal
+# labels as the JSON report). One light cell stays visible while any hand-typed
+# lines remain, and the reverse, so rounding cannot erase a real share.
+BAR_WIDTH = 10
+README_REL = "README.md"
+COVERAGE_BAR_START = "<!-- coverage-bar:start -->"
+COVERAGE_BAR_END = "<!-- coverage-bar:end -->"
+TYPING_BADGE_RE = re.compile(
+    r'<img src="https://img\.shields\.io/badge/Typing%20Coverage-[^"]+" '
+    r'alt="Typing Coverage [^"]+" />'
+)
 
 def format_threshold(threshold: float) -> str:
-    """Render a threshold the way the pill caption should read (10, not 10.0)."""
+    """Render a threshold without a trailing decimal (10, not 10.0)."""
     rounded = round(float(threshold), 2)
     if abs(rounded - round(rounded)) < 1e-9:
         return str(int(round(rounded)))
@@ -289,120 +260,130 @@ def coverage_labels(coverage_pct: float, total_loc: int) -> tuple[str, str]:
     ai_label = f"{ai_rounded:.2f}"
     return ai_label, hand_label
 
-def bar_segment_widths(hand_loc: int, ai_loc: int) -> tuple[int, int, int]:
-    """
-    Return (ai_width, gutter, hand_width) in pixels, summing to SVG_WIDTH.
-
-    Widths follow the raw line counts. Each non-empty segment keeps at least
-    one pixel so a real count cannot disappear into rounding.
-    """
-    total = hand_loc + ai_loc
-    if total <= 0 or hand_loc < 0 or ai_loc < 0:
-        return 0, 0, 0
-    if hand_loc == 0:
-        return SVG_WIDTH, 0, 0
-    if ai_loc == 0:
-        return 0, 0, SVG_WIDTH
-
-    usable = SVG_WIDTH - SVG_BAR_GUTTER
-    hand_width = int(round(hand_loc / total * usable))
-    hand_width = min(max(hand_width, 1), usable - 1)
-    ai_width = usable - hand_width
-    return ai_width, SVG_BAR_GUTTER, hand_width
-
-def render_coverage_svg(
-    *,
-    hand_loc: int,
-    ai_loc: int,
-    coverage_pct: float,
-    passed: bool,
-    threshold: float,
-) -> str:
-    """Build the profile pill from measured counts. No pass/fail chrome."""
-    total_loc = hand_loc + ai_loc
-    ai_label, hand_label = coverage_labels(coverage_pct, total_loc)
-    ai_width, gutter, hand_width = bar_segment_widths(hand_loc, ai_loc)
-    threshold_label = format_threshold(threshold)
-
-    if total_loc <= 0:
-        caption = f"Typing is learning. No measured lines yet; it fails below {threshold_label}%."
-        passed_attr = "false"
-    elif passed:
-        caption = f"Typing is learning. Hand-typed craft passes; it fails below {threshold_label}%."
-        passed_attr = "true"
+def render_coverage_bar_line(ai_label: str, hand_label: str, width: int = BAR_WIDTH) -> str:
+    """One-line provenance bar. Filled cells track the measured AI share."""
+    ai_pct = float(ai_label)
+    filled = int(round((ai_pct / 100.0) * width))
+    if ai_pct <= 0:
+        filled = 0
+    elif ai_pct >= 100:
+        filled = width
     else:
-        caption = f"Typing is learning. Hand-typed craft is below {threshold_label}%."
-        passed_attr = "false"
+        filled = min(max(filled, 1), width - 1)
+    bar = "█" * filled + "░" * (width - filled)
+    return f"{bar} {ai_label}% AI · {hand_label}% hand"
 
-    title = f"Codebase provenance: {ai_label}% AI scaffolding, {hand_label}% hand-typed craft"
-    desc = (
-        f"Measured by scripts/check_typing_coverage.py. "
-        f"{hand_loc:,} of {total_loc:,} lines are hand-typed ({hand_label}%); "
-        f"{ai_loc:,} are AI scaffolding ({ai_label}%). "
-        f"{caption}"
+def render_coverage_bar_block(ai_label: str, hand_label: str) -> str:
+    """Markdown fence that displays the bar as text on the profile."""
+    return "```text\n" + render_coverage_bar_line(ai_label, hand_label) + "\n```"
+
+def render_typing_badge(hand_label: str, passed: bool, threshold: float) -> str:
+    """Shields.io chip kept in lockstep with the measured hand-typed share."""
+    status = "PASS" if passed else "FAIL"
+    color = "10B981" if passed else "EF4444"
+    threshold_label = format_threshold(threshold)
+    src = (
+        "https://img.shields.io/badge/Typing%20Coverage-"
+        f"{hand_label}%25%20{status}%20(%E2%89%A5{threshold_label}%25)-{color}?style=flat-square"
+    )
+    alt = f"Typing Coverage {hand_label}% {status}"
+    return f'<img src="{src}" alt="{alt}" />'
+
+def _marked_region_pattern() -> re.Pattern:
+    return re.compile(
+        re.escape(COVERAGE_BAR_START) + r"\n(.*)\n" + re.escape(COVERAGE_BAR_END),
+        re.DOTALL,
     )
 
-    rects = []
-    cursor = 0
-    if ai_width:
-        rects.append(f'    <rect class="bar-ai" width="{ai_width}" height="18" y="38" />')
-        cursor += ai_width
-    if gutter:
-        cursor += gutter
-    if hand_width:
-        x_attr = f' x="{cursor}"' if cursor else ""
-        rects.append(
-            f'    <rect class="bar-hand"{x_attr} width="{hand_width}" height="18" y="38" />'
+def extract_coverage_bar_block(readme: str) -> str | None:
+    match = _marked_region_pattern().search(readme)
+    if not match:
+        return None
+    return match.group(1)
+
+def apply_coverage_display(readme: str, block: str, badge: str) -> tuple[str, str | None]:
+    """Return (updated README, error). Markers and the typing badge are required."""
+    if extract_coverage_bar_block(readme) is None:
+        return readme, (
+            "README.md is missing coverage bar markers "
+            f"({COVERAGE_BAR_START} ... {COVERAGE_BAR_END})."
         )
-    rect_block = "\n".join(rects)
-    width_comment = (
-        f"    <!-- {ai_loc} AI lines -> {ai_width}px; "
-        f"{gutter}px gutter; {hand_loc} hand-typed lines -> {hand_width}px -->"
+    updated = _marked_region_pattern().sub(
+        f"{COVERAGE_BAR_START}\n{block}\n{COVERAGE_BAR_END}",
+        readme,
+        count=1,
     )
+    if not TYPING_BADGE_RE.search(updated):
+        return updated, "README.md is missing the Typing Coverage badge."
+    updated = TYPING_BADGE_RE.sub(badge, updated, count=1)
+    return updated, None
 
-    return f"""<!-- Generated from the typing-coverage linter. Do not edit by hand. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {SVG_WIDTH} 96" width="{SVG_WIDTH}" height="96" fill="none" role="img" data-ai-pct="{ai_label}" data-hand-typed-pct="{hand_label}" data-ai-loc="{ai_loc}" data-hand-typed-loc="{hand_loc}" data-total-loc="{total_loc}" data-threshold="{escape(threshold_label)}" data-passed="{passed_attr}">
-  <title>{escape(title)}</title>
-  <desc>{escape(desc)}</desc>
-{SVG_STYLE}
-
-  <text x="0" y="22" class="num">{ai_label}%<tspan class="name" dx="10">AI scaffolding</tspan></text>
-  <text x="{SVG_WIDTH}" y="22" text-anchor="end" class="name">Hand-typed craft<tspan class="num num-hand" dx="10">{hand_label}%</tspan></text>
-
-  <defs>
-    <clipPath id="coverage-pill">
-      <rect width="{SVG_WIDTH}" height="18" y="38" rx="9" />
-    </clipPath>
-  </defs>
-  <g clip-path="url(#coverage-pill)">
-{width_comment}
-{rect_block}
-  </g>
-
-  <text x="0" y="80" class="caption">{escape(caption)}</text>
-</svg>
-"""
-
-def svg_out_of_date_message(path: str, ai_label: str, hand_label: str, ai_loc: int, hand_loc: int) -> str:
+def bar_out_of_date_message(ai_label: str, hand_label: str, ai_loc: int, hand_loc: int) -> str:
     return (
-        f"{path} does not match the working tree: "
+        "README coverage bar does not match the working tree: "
         f"{ai_label}% AI scaffolding ({ai_loc:,} lines), "
         f"{hand_label}% hand-typed ({hand_loc:,} lines).\n"
-        f"Regenerate with: python3 scripts/check_typing_coverage.py --write-svg {path}"
+        "Regenerate with: make coverage-bar"
     )
 
-def resolve_repo_path(path_str: str, repo_root: Path) -> Path:
-    path = Path(path_str)
-    if path.is_absolute():
-        return path
-    return repo_root / path
+def coverage_display_for(measured: dict, threshold: float) -> tuple[str, str, str, str, bool]:
+    """Return (block, badge, ai_label, hand_label, passed) for a measurement."""
+    coverage_pct = measured["coverage_pct"]
+    passed = coverage_pct >= threshold
+    ai_label, hand_label = coverage_labels(coverage_pct, measured["total_loc"])
+    block = render_coverage_bar_block(ai_label, hand_label)
+    badge = render_typing_badge(hand_label, passed, threshold)
+    return block, badge, ai_label, hand_label, passed
+
+def refresh_readme_bar(repo_root: Path, threshold: float) -> None:
+    """Rewrite the README bar until it matches the tree that contains it."""
+    readme_path = repo_root / README_REL
+    if not readme_path.exists():
+        raise SystemExit(f"Missing {README_REL}")
+
+    for _ in range(6):
+        measured = measure_coverage("working-tree", repo_root)
+        block, badge, _, _, _ = coverage_display_for(measured, threshold)
+        current = readme_path.read_text(encoding="utf-8")
+        updated, error = apply_coverage_display(current, block, badge)
+        if error:
+            raise SystemExit(error)
+        if updated == current:
+            return
+        readme_path.write_text(updated, encoding="utf-8")
+
+    raise SystemExit("Coverage bar did not stabilize after rewriting README.md.")
+
+def readme_bar_mismatch(repo_root: Path, threshold: float, measured: dict) -> str | None:
+    """None when the committed README bar matches this measurement."""
+    readme_path = repo_root / README_REL
+    current = readme_path.read_text(encoding="utf-8") if readme_path.exists() else ""
+    block, badge, ai_label, hand_label, _ = coverage_display_for(measured, threshold)
+    found = extract_coverage_bar_block(current)
+    if found is None:
+        return (
+            "README.md is missing the generated coverage bar "
+            f"({COVERAGE_BAR_START} ... {COVERAGE_BAR_END}).\n"
+            "Regenerate with: make coverage-bar"
+        )
+    if found != block:
+        return bar_out_of_date_message(
+            ai_label, hand_label, measured["total_ai"], measured["total_hand"]
+        )
+    if badge not in current:
+        return (
+            "README.md Typing Coverage badge does not match the measurement: "
+            f"{hand_label}% hand-typed.\n"
+            "Regenerate with: make coverage-bar"
+        )
+    return None
 
 def main():
     parser = argparse.ArgumentParser(
         description="Verify repository hand-typed code coverage meets Embodiment Rule threshold.",
         epilog=(
             "The profile bar is generated from the full working tree: "
-            "python3 scripts/check_typing_coverage.py --write-svg assets/coverage-bar.svg"
+            "python3 scripts/check_typing_coverage.py --write-bar"
         ),
     )
     parser.add_argument(
@@ -428,26 +409,30 @@ def main():
         help="Output results as JSON"
     )
     parser.add_argument(
-        "--write-svg",
-        metavar="PATH",
+        "--write-bar",
+        action="store_true",
         help=(
-            "Write the coverage-bar SVG to PATH from the full working tree, "
+            "Rewrite the README provenance bar from the full working tree, "
             "using the same provenance rules as this linter. Ignores --mode."
         ),
     )
     parser.add_argument(
-        "--check-svg",
-        metavar="PATH",
+        "--check-bar",
+        action="store_true",
         help=(
-            "Exit 1 if PATH differs from the SVG this command would write for "
-            "the full working tree. Ignores --mode."
+            "Exit 1 if the README provenance bar differs from the text this "
+            "command would write for the full working tree. Ignores --mode."
         ),
     )
 
     args = parser.parse_args()
     repo_root = get_repo_root()
-    # The committed figure is the whole repo on disk, not the staged slice.
-    measure_mode = "working-tree" if (args.write_svg or args.check_svg) else args.mode
+    # The committed bar is the whole repo on disk, not the staged slice.
+    # Rewrite first so the measurement below includes the bar's own lines.
+    if args.write_bar:
+        refresh_readme_bar(repo_root, args.threshold)
+
+    measure_mode = "working-tree" if (args.write_bar or args.check_bar) else args.mode
     measured = measure_coverage(measure_mode, repo_root)
     total_hand = measured["total_hand"]
     total_ai = measured["total_ai"]
@@ -457,25 +442,11 @@ def main():
     file_stats = measured["file_stats"]
     passed = coverage_pct >= args.threshold
     ai_label, hand_label = coverage_labels(coverage_pct, total_loc)
+    provenance_bar = render_coverage_bar_line(ai_label, hand_label)
 
-    svg_text = None
-    svg_mismatch = False
-    if args.write_svg or args.check_svg:
-        svg_text = render_coverage_svg(
-            hand_loc=total_hand,
-            ai_loc=total_ai,
-            coverage_pct=coverage_pct,
-            passed=passed,
-            threshold=args.threshold,
-        )
-    if args.write_svg:
-        destination = resolve_repo_path(args.write_svg, repo_root)
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(svg_text, encoding="utf-8")
-    if args.check_svg:
-        check_path = resolve_repo_path(args.check_svg, repo_root)
-        current = check_path.read_text(encoding="utf-8") if check_path.exists() else ""
-        svg_mismatch = current != svg_text
+    bar_error = None
+    if args.write_bar or args.check_bar:
+        bar_error = readme_bar_mismatch(repo_root, args.threshold, measured)
 
     if args.json:
         result = {
@@ -485,16 +456,14 @@ def main():
             "total_loc": total_loc,
             "hand_typed_loc": total_hand,
             "ai_generated_loc": total_ai,
+            "provenance_bar": provenance_bar,
             "files_count": len(files),
             "files": file_stats
         }
         print(json.dumps(result, indent=2))
-        if svg_mismatch:
-            print(
-                svg_out_of_date_message(args.check_svg, ai_label, hand_label, total_ai, total_hand),
-                file=sys.stderr,
-            )
-        sys.exit(0 if passed and not svg_mismatch else 1)
+        if bar_error:
+            print(bar_error, file=sys.stderr)
+        sys.exit(0 if passed and not bar_error else 1)
 
     # ANSI Colors
     GREEN = "\033[92m"
@@ -529,11 +498,12 @@ def main():
     print(f"  • AI Scaffolding:      {PURPLE}{total_ai:,} LOC{RESET} ({100.0 - coverage_pct:.1f}%)")
     print(f"  • Total Evaluated:     {total_loc:,} LOC across {len(files)} files\n")
 
-    if args.write_svg:
-        print(f"  {BOLD}Wrote{RESET} {args.write_svg}")
+    if args.write_bar:
+        print(f"  {BOLD}Wrote{RESET} README provenance bar")
+        print(f"  {DIM}{provenance_bar}{RESET}")
         print(f"  {DIM}Measured working tree: {ai_label}% AI scaffolding ({total_ai:,} lines), {hand_label}% hand-typed ({total_hand:,} lines).{RESET}\n")
 
-    if passed and not svg_mismatch:
+    if passed and not bar_error:
         print(f"  {GREEN}{BOLD}✔ PASS:{RESET} {GREEN}Codebase embodies the typing threshold! Commit permitted.{RESET}")
         print(f"{BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}\n")
         sys.exit(0)
@@ -547,8 +517,8 @@ def main():
         print(f"  2. Tag hand-written files with '{CYAN}@provenance: hand-typed{RESET}' in header comments.")
         print(f"  3. Wrap hand-typed sections with '{CYAN}@hand-typed:start{RESET}' ... '{CYAN}@hand-typed:end{RESET}'.")
 
-    if svg_mismatch:
-        print(f"  {RED}{BOLD}✖ SVG OUT OF DATE:{RESET} {svg_out_of_date_message(args.check_svg, ai_label, hand_label, total_ai, total_hand)}\n")
+    if bar_error:
+        print(f"  {RED}{BOLD}✖ BAR OUT OF DATE:{RESET} {bar_error}\n")
 
     print(f"{BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{RESET}\n")
     sys.exit(1)
