@@ -264,3 +264,24 @@ Now step back and put on your **System Design Interviewer / Tech Lead hat**. Ans
 4. **Order Status Lifecycle & Asynchronous Processing**:  
    When a user submits `POST /orders`, is the order instantly `FILLED` synchronously before returning `201 Created`? Or does the API return `201 Created` with status `PENDING` / `RECEIVED` while dispatching to an asynchronous matching engine queue?
    > **Your reflection:**
+
+---
+
+## Nova / Formation status (2026-09-21)
+
+Formation task [CRUD APIs with REST — Q2](https://formation.dev/platform/task/d01eb5c0-1bff-11f1-ad32-c1ed1533443e): **Nailed It!** after revision covering all five actions (placeOrder + four reads). No High Priority items on the final review.
+
+Working notes only live in this profile-repo lab (`tlindow/tlindow`). Do not host exercises on the marketing site.
+
+### TODOs — close these gaps in *this* markdown (type into the Step blocks above)
+
+Interview / Diagnostic altitude (beyond Formation Q2 pass):
+
+- [ ] **TODO: Stock Detail = write** — In Step 1 notes or a short UI blurb, state swipe-to-buy on Detail is a write path (Step 3), not a read-only screen.
+- [ ] **TODO: Napkin QPS from DAU** — Add a short § before Step 6: pick DAU → avg QPS → peak ≈ avg × (24/busy_hours) (~3×). Split quote reads vs order writes. (Working napkin used on Formation: reads ~200 avg / ~2000 peak; writes ~20 avg / ~200 peak — re-derive explicitly.)
+- [ ] **TODO: HLD box** — After contracts, one diagram/list: quote service, order service, matching-engine queue, orders DB; **Redis quote cache ≠ Redis Idempotency-Key store**.
+- [ ] **TODO: Bottleneck mechanisms (3–4)** — Name *how*: hot-ticker cache stampede; idempotency-key lock/TTL on write path; matching lag → `201` + `PENDING` then poll/SSE; watchlist N+1 → batch quotes.
+- [ ] **TODO: Fill Steps 1–5 answer blocks** — Copy Formation-passed contracts into each `[YOUR ANSWER]` / sample JSON (DecimalString money; batch `unresolvedSymbols`; `POST /api/v1/orders` + Idempotency-Key + `201`/`PENDING`; `GET /api/v1/orders/:id` with IDOR→404; token-scoped `GET /api/v1/orders`).
+- [ ] **TODO: Fill Step 6 reflections** — Streaming vs REST; Redis idempotency TTL/lock; float vs decimal; async fill lifecycle (already coached — write 1–2 sentences each).
+- [ ] **TODO: Re-run on Formation only if you change substance** — GitHub MD is practice; scored path stays formation.dev Nova.
+
