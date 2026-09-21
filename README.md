@@ -10,12 +10,13 @@
     <a href="https://www.linkedin.com/in/tlindow/"><img src="https://img.shields.io/badge/LinkedIn-Tyler%20Lindow-FACC15?style=flat-square&logo=linkedin&logoColor=000" alt="LinkedIn" /></a>
     <a href="./exercises/README.md"><img src="https://img.shields.io/badge/Technical%20Labs-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000" alt="Technical Labs" /></a>
     <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square" alt="Role" /></a>
-    <img src="https://img.shields.io/badge/Typing%20Coverage-12.5%25%20PASS%20(%E2%89%A510%25)-10B981?style=flat-square" alt="Typing Coverage PASS" />
+    <img src="https://img.shields.io/badge/Typing%20Coverage-10.91%25%20PASS%20(%E2%89%A510%25)-10B981?style=flat-square" alt="Typing Coverage 10.91% PASS" />
   </p>
 </div>
 
 <div align="center">
-  <img src="./assets/coverage-bar.svg" alt="Codebase provenance: 87.5% AI scaffolding, 12.5% hand-typed craft. Passes; fails below 10% hand-typed." width="100%" />
+  <img src="./assets/coverage-bar.svg" alt="Codebase provenance: 89.09% AI scaffolding, 10.91% hand-typed craft. Passes; fails below 10% hand-typed." width="100%" />
+  <p><sub>Generated from the typing-coverage linter. Regenerate with <code>make coverage-svg</code>.</sub></p>
 </div>
 
 ---

@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 96" width="480" height="96" fill="none" role="img">
-  <title>Codebase provenance: 87.5% AI scaffolding, 12.5% hand-typed craft</title>
-  <desc>Typing is learning. Hand-typed craft passes; it fails below 10%.</desc>
+<!-- Generated from the typing-coverage linter. Do not edit by hand. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 96" width="480" height="96" fill="none" role="img" data-ai-pct="89.09" data-hand-typed-pct="10.91" data-ai-loc="3830" data-hand-typed-loc="469" data-total-loc="4299" data-threshold="10" data-passed="true">
+  <title>Codebase provenance: 89.09% AI scaffolding, 10.91% hand-typed craft</title>
+  <desc>Measured by scripts/check_typing_coverage.py. 469 of 4,299 lines are hand-typed (10.91%); 3,830 are AI scaffolding (89.09%). Typing is learning. Hand-typed craft passes; it fails below 10%.</desc>
   <style>
     .num, .name, .caption {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -34,8 +35,8 @@
     }
   </style>
 
-  <text x="0" y="22" class="num">87.5%<tspan class="name" dx="10">AI scaffolding</tspan></text>
-  <text x="480" y="22" text-anchor="end" class="name">Hand-typed craft<tspan class="num num-hand" dx="10">12.5%</tspan></text>
+  <text x="0" y="22" class="num">89.09%<tspan class="name" dx="10">AI scaffolding</tspan></text>
+  <text x="480" y="22" text-anchor="end" class="name">Hand-typed craft<tspan class="num num-hand" dx="10">10.91%</tspan></text>
 
   <defs>
     <clipPath id="coverage-pill">
@@ -43,9 +44,9 @@
     </clipPath>
   </defs>
   <g clip-path="url(#coverage-pill)">
-    <!-- 87.5% / 12.5% of the colored bar, with a 4px gutter on the boundary -->
-    <rect class="bar-ai" width="416" height="18" y="38" />
-    <rect class="bar-hand" x="420" width="60" height="18" y="38" />
+    <!-- 3830 AI lines -> 424px; 4px gutter; 469 hand-typed lines -> 52px -->
+    <rect class="bar-ai" width="424" height="18" y="38" />
+    <rect class="bar-hand" x="428" width="52" height="18" y="38" />
   </g>
 
   <text x="0" y="80" class="caption">Typing is learning. Hand-typed craft passes; it fails below 10%.</text>
