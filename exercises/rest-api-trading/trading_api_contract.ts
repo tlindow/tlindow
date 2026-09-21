@@ -1,4 +1,10 @@
 /**
+ * Formation coaching TODOs live in ./exercise_trading_api.md
+ * (search for "TODO [FORMATION"). Reference only — do not change the types
+ * in this file to satisfy those markers. Type the answers in the markdown.
+ */
+
+/**
  * ============================================================================
  * EXERCISE: Robinhood-Style Stock Trading REST API Contracts (TypeScript)
  * ============================================================================
