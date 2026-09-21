@@ -12,6 +12,12 @@ Remember: **Typing IS learning.** Resisting the urge to copy-paste or skim helps
 [0. Platform Recon & Assumptions] ──> [1. Traffic & Requirements] ──> [2. REST Contracts] ──> [3. Architecture] ──> [4. Deep Dives]
 ```
 
+> **Formation coaching — suggested 45–60 min fill order**
+>
+> Expected behaviors (10) → Market size + QPS (15) → 4 bottlenecks (10) → `POST /orders` (15) → batch/quote GETs + IDOR (10) → resilience + Step 6 if time.
+>
+> **Mentor note:** The prior mock gap was exploration minutiae before Requirements → APIs → high-level design. This lab forces the framework from minute one — do not linger on UI prose.
+
 ---
 
 ## 📱 Pre-Step: UI Mocks & User Mental Model
@@ -80,14 +86,16 @@ We're missing the actual write action of buying shares, which I imagine can be e
 And then another read screen showing what is being or has been purchased
 
 
-Overall: Based on the scope of this system design exercise, it's a read heavy application, users expect near-real time visualization of prices, probably with some forgiviness if the prices changes by a few cents at the time of purchase. 
+Overall: Based on the scope of this system design exercise, it's a read heavy application, users expect near-real time visualization of prices, probably with some forgiviness if the prices changes by a few cents at the time of purchase.
 
-
+> **TODO [FORMATION LOW 10]:** Altitude check. If you start rewriting UI copy or polishing these mock notes, stop and jump to market sizing → the 4 bottlenecks → `POST /orders`. The mocks are context. The deliverable is the framework.
 
 ---
 
 ### ✍️ List Expected User Behaviors
 Based on the mocks above, write out what the user expects the system to do:
+
+> **TODO [FORMATION HIGH 1]:** Convert the freeform UI notes above into the 4 numbered expected behaviors below: Home, Detail, Swipe-to-buy, History. Each behavior needs three parts: a latency expectation, a consistency call (is a stale quote OK?), and a failure mode (double-swipe, offline). Timebox ≤10 minutes, then leave the mocks.
 
 ```text
 1. When loading the Home Screen / Watchlist:
@@ -108,6 +116,12 @@ Based on the mocks above, write out what the user expects the system to do:
 ## 🏛️ Framework Step 1: Market Size, Traffic & Bottleneck Analysis
 
 Before designing API endpoints and data contracts, quantify the scale of the domain, extrapolate traffic loads, identify the first architectural bottlenecks, and define the retry and error strategies.
+
+> **TODO [FORMATION HIGH 2]:** Napkin peak sizing BEFORE any endpoint. No contracts until these numbers exist.
+>
+> **Part 1:** Fill with explicit round numbers (equity universe, hot tickers, DAU, watchlist size, trades per user per day).
+>
+> **Part 2:** Avg QPS = daily_ops / busy_seconds. Peak ≈ avg × (24 / busy_hours) ≈ avg × ~3 for ~8 busy hours — or use a 6.5h market day (~23.4k seconds) plus a separate open-burst multiplier (5–10×). Write **avg and peak** for reads vs writes. State p99 latency targets for each subsystem.
 
 ---
 
@@ -153,6 +167,13 @@ Establish the baseline numbers of the financial market and user base:
 ### Part 3: Identifying the First 4 System Bottlenecks
 Given the numbers above, where will the system break first?
 
+> **TODO [FORMATION HIGH 3]:** For each of the 4 bottlenecks, write failure mode → mitigation → what it protects. Minimum bar:
+>
+> - Hot keys → short-TTL Redis or edge cache
+> - Order herd → async accept + queue (ACK is not a fill)
+> - Retries → `Idempotency-Key` (same key + same body = same order; body mismatch returns 409)
+> - Batch partial failure → 200 with a per-symbol envelope; an all-or-nothing 500 is the failure mode to design out
+
 ```text
 1. Bottleneck 1 (Hot Key Contention on Market Data):
    - 80% of all users look at the same ~50 mega-cap tickers (AAPL, TSLA, NVDA, SPY).
@@ -179,6 +200,8 @@ Given the numbers above, where will the system break first?
 
 ### Part 4: API Error, Retry & Resilience Strategy
 Before defining routes, decide how the client and server negotiate failure:
+
+> **TODO [FORMATION MED 8]:** Split the retry policy before you design routes. 429 and 503 are retryable (exponential backoff + jitter; honor `Retry-After`). 400, 401, 422, and 409 are non-retryable. Then state the isolation rule: a market-data failure must not take down order history or order placement, and an order-execution failure must not take down quote reads.
 
 ```text
 1. Retryable Status Codes (Transient Failures):
@@ -209,6 +232,8 @@ Translate the domain actions into production REST interfaces. For each endpoint,
 
 #### 📋 Scenario & Context
 A user taps on **AAPL** to open the stock detail page. The mobile app needs to fetch the most up-to-date market quote, latest price, bid/ask spread, and daily volume.
+
+> **TODO [FORMATION MED 7]:** Treat the single quote as a safe, cacheable GET. Specify a short `Cache-Control` max-age and where it lives (CDN + Redis). Return money as decimal strings.
 
 #### 🏛️ High-Level System Reasoning
 - **Traffic & Caching**: [YOUR ANSWER: Is this endpoint cacheable? Where (CDN, Redis, Gateway)? What `Cache-Control` max-age makes sense?]
@@ -250,6 +275,8 @@ Sample Response (200 OK):
 #### 📋 Scenario & Context
 A user opens their **Watchlist** or **Portfolio Home Screen**, which displays current prices for 10-50 stocks simultaneously (e.g. `AAPL`, `MSFT`, `NVDA`, `GOOGL`).
 
+> **TODO [FORMATION MED 5]:** Design batch quotes for partial success and URI limits. Use GET plus a `symbols` query parameter. Name the URI-length escape when the symbol list no longer fits in the query string. Response shape: `quotes` plus `unresolvedSymbols`. One bad symbol stays in the 200 envelope.
+
 #### 🏛️ High-Level System Reasoning
 - **Batching & URI Constraints**: [YOUR ANSWER: Why use GET with query params instead of POST? When would URI length limits become an issue?]
 - **Partial Failure & Cache Strategy**: [YOUR ANSWER: If 1 out of 20 tickers is halted/invalid, does the request fail 404 or return partial 200 OK? Can CDNs cache multi-symbol queries?]
@@ -289,6 +316,17 @@ Sample Response (200 OK):
 
 #### 📋 Scenario & Context
 The user taps **"Swipe to Buy"** to place an order: buying `10` shares of `AAPL` as a `LIMIT` order at `$180.00` (or a `MARKET` order).
+
+> **TODO [FORMATION HIGH 4]:** Fill this `placeOrder` contract completely before polishing the other endpoints. Required on the wire:
+>
+> - `Idempotency-Key` header
+> - Money as decimal strings
+> - `201 Created` with status `PENDING` or `RECEIVED` (async accept)
+> - `Location` header pointing at the new order
+> - `422` for insufficient buying power and for market closed
+> - `409` when the same idempotency key is reused with a different body
+>
+> For this exercise, reject a synchronous `FILLED` status in the 201 body. The create response acknowledges the order; it does not report a fill.
 
 #### 🏛️ High-Level System Reasoning
 - **Financial Mutability & Network Retries**: [YOUR ANSWER: If network drops after buy execution, how does `Idempotency-Key` prevent double buys?]
@@ -337,6 +375,8 @@ Sample Response (201 Created):
 
 #### 📋 Scenario & Context
 After placing an order, or when clicking an entry in their activity feed, the user views the exact state and fills for order `ord_987654321`.
+
+> **TODO [FORMATION MED 6]:** Close the IDOR hole on `viewOrder`. If the caller does not own `orderId`, return `404 Not Found`. Write why `403 Forbidden` leaks existence: the client learns the id is real and belongs to someone else.
 
 #### 🏛️ High-Level System Reasoning
 - **Resource Identity & Privacy**: [YOUR ANSWER: If user A tries to fetch user B's `orderId`, why return `404 Not Found` instead of `403 Forbidden`?]
@@ -415,6 +455,8 @@ Sample Response (200 OK):
 ---
 
 ## Step 6: Senior Architectural Altitude Drill
+
+> **TODO [FORMATION LOW 9]:** Answer this step only after the contracts above exist. Write 2–4 sentences on each of these two trade-offs: streaming versus poll (why REST polling loses when quotes tick about every 50ms, and where `GET /quotes` still fits), and synchronous fill versus async `201` + `PENDING` (why `POST /orders` returns `PENDING` or `RECEIVED` and leaves `FILLED` to a later read).
 
 Now step back and put on your **System Design Interviewer / Tech Lead hat**. Answer these 4 architectural questions in 1-2 concise sentences each:
 
