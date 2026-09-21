@@ -267,21 +267,18 @@ Now step back and put on your **System Design Interviewer / Tech Lead hat**. Ans
 
 ---
 
-## Nova / Formation status (2026-09-21)
+## Learning status (2026-09-21) — not a personal pass yet
 
-Formation task [CRUD APIs with REST — Q2](https://formation.dev/platform/task/d01eb5c0-1bff-11f1-ad32-c1ed1533443e): **Nailed It!** after revision covering all five actions (placeOrder + four reads). No High Priority items on the final review.
+Formation Q2 showed **Nailed It!** only after a coached paste of production-shaped contracts. That does **not** count as Tyler owning the solution. Goal: rewrite every answer below from conceptual understanding until you could reproduce them cold in a mock.
 
-Working notes only live in this profile-repo lab (`tlindow/tlindow`). Do not host exercises on the marketing site.
+### Understanding gaps (from your a15f1c3 pass) → TODOs you close yourself
 
-### TODOs — close these gaps in *this* markdown (type into the Step blocks above)
-
-Interview / Diagnostic altitude (beyond Formation Q2 pass):
-
-- [ ] **TODO: Stock Detail = write** — In Step 1 notes or a short UI blurb, state swipe-to-buy on Detail is a write path (Step 3), not a read-only screen.
-- [ ] **TODO: Napkin QPS from DAU** — Add a short § before Step 6: pick DAU → avg QPS → peak ≈ avg × (24/busy_hours) (~3×). Split quote reads vs order writes. (Working napkin used on Formation: reads ~200 avg / ~2000 peak; writes ~20 avg / ~200 peak — re-derive explicitly.)
-- [ ] **TODO: HLD box** — After contracts, one diagram/list: quote service, order service, matching-engine queue, orders DB; **Redis quote cache ≠ Redis Idempotency-Key store**.
-- [ ] **TODO: Bottleneck mechanisms (3–4)** — Name *how*: hot-ticker cache stampede; idempotency-key lock/TTL on write path; matching lag → `201` + `PENDING` then poll/SSE; watchlist N+1 → batch quotes.
-- [ ] **TODO: Fill Steps 1–5 answer blocks** — Copy Formation-passed contracts into each `[YOUR ANSWER]` / sample JSON (DecimalString money; batch `unresolvedSymbols`; `POST /api/v1/orders` + Idempotency-Key + `201`/`PENDING`; `GET /api/v1/orders/:id` with IDOR→404; token-scoped `GET /api/v1/orders`).
-- [ ] **TODO: Fill Step 6 reflections** — Streaming vs REST; Redis idempotency TTL/lock; float vs decimal; async fill lifecycle (already coached — write 1–2 sentences each).
-- [ ] **TODO: Re-run on Formation only if you change substance** — GitHub MD is practice; scored path stays formation.dev Nova.
-
+- [ ] **TODO: Writes vs reads on Stock Detail** — You called Detail a read/transition screen. Gap: swipe-to-buy is a **mutating** user action (`POST /orders`) that shares the screen with quote reads. Fix: list every UI gesture → read or write before designing APIs.
+- [ ] **TODO: Derive napkin QPS (don’t assert)** — You stated ~200/2000 read and ~20/200 write without a DAU→avg→peak chain. Gap: interviewers want the derivation (`peak ≈ avg × (24/busy_hours)`). Fix: pick DAU + actions/user/day; show the algebra for quotes vs orders separately.
+- [ ] **TODO: One Redis ≠ two jobs** — You used Redis for “stock quotes as intermediate” and Idempotency-Key in the same breath. Gap: quote cache (read path, TTL/invalidate) and idempotency store (write path, key→response, lock/TTL) are different contracts. Fix: name two stores and what each key looks like.
+- [ ] **TODO: Async order acceptance** — You wrote REST + “SSE on failure” for confirmation. Gap: happy path is `201` + `PENDING`/`RECEIVED` while matching runs async; SSE/WS is for **live updates**, not the failure path for create. Fix: write the lifecycle PENDING→SUBMITTED→FILLED without tying SSE to errors.
+- [ ] **TODO: Batch partial success** — Contracts file has `unresolvedSymbols`; your narrative didn’t own it. Gap: batch GET should usually `200` with per-symbol success/fail, not all-or-nothing `404`. Fix: specify response shape for 3 valid + 2 bad symbols.
+- [ ] **TODO: IDOR / userId in the path** — Prompt’s `viewAllOrders(userId)` tempts `GET /users/{userId}/orders`. Gap: client apps must scope from the token (`GET /orders` or `/me/orders`); cross-user order fetch → **404** (not 403) to avoid enumeration. Fix: write client vs admin routes and why.
+- [ ] **TODO: Money as DecimalString** — Types already avoid float; confirm you can explain *why* IEEE-754 fails for prices and how the JSON schema looks (`"185.50"` or integer cents).
+- [ ] **TODO: Fill Steps 1–6 yourself** — Type every `[YOUR ANSWER]` and Step 6 reflection from scratch (no paste from the coached Formation submit). Then spot-check against `trading_api_contract.ts` only after you’re done.
+- [ ] **TODO: Re-submit on Formation solo** — When the blocks above are checked from *your* typing, submit a fresh answer on formation.dev without coach paste; that’s the real pass.
