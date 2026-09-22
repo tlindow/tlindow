@@ -57,6 +57,7 @@ flowchart LR
 | **Identity & Security** | Header (`Authorization: Bearer <token>`) & `/orders` or `/users/me/orders` | Blindly accepting `GET /users/{userId}/orders` from mobile clients, risking **IDOR** (Insecure Direct Object Reference). |
 
 ---
+**Elevating Developer Fintech.** Working the system design phases in this repo — requirements, core APIs, architecture, and deep dives — clarified how portal trust boundaries and educational beginner flows map to Elevating Developer Fintech positioning: marketing as engineering leadership, and B2B portals as trust stores. The drill keeps craft practice tied to signal.
 
 ## 🛠️ How to Practice (Typing IS Learning)
 
