@@ -264,3 +264,21 @@ Now step back and put on your **System Design Interviewer / Tech Lead hat**. Ans
 4. **Order Status Lifecycle & Asynchronous Processing**:  
    When a user submits `POST /orders`, is the order instantly `FILLED` synchronously before returning `201 Created`? Or does the API return `201 Created` with status `PENDING` / `RECEIVED` while dispatching to an asynchronous matching engine queue?
    > **Your reflection:**
+
+---
+
+## Learning status (2026-09-21) — not a personal pass yet
+
+Formation Q2 showed **Nailed It!** only after a coached paste of production-shaped contracts. That does **not** count as Tyler owning the solution. Goal: rewrite every answer below from conceptual understanding until you could reproduce them cold in a mock.
+
+### Understanding gaps (from your a15f1c3 pass) → TODOs you close yourself
+
+- [ ] **TODO: Writes vs reads on Stock Detail** — You called Detail a read/transition screen. Gap: swipe-to-buy is a **mutating** user action (`POST /orders`) that shares the screen with quote reads. Fix: list every UI gesture → read or write before designing APIs.
+- [ ] **TODO: Derive napkin QPS (don’t assert)** — You stated ~200/2000 read and ~20/200 write without a DAU→avg→peak chain. Gap: interviewers want the derivation (`peak ≈ avg × (24/busy_hours)`). Fix: pick DAU + actions/user/day; show the algebra for quotes vs orders separately.
+- [ ] **TODO: One Redis ≠ two jobs** — You used Redis for “stock quotes as intermediate” and Idempotency-Key in the same breath. Gap: quote cache (read path, TTL/invalidate) and idempotency store (write path, key→response, lock/TTL) are different contracts. Fix: name two stores and what each key looks like.
+- [ ] **TODO: Async order acceptance** — You wrote REST + “SSE on failure” for confirmation. Gap: happy path is `201` + `PENDING`/`RECEIVED` while matching runs async; SSE/WS is for **live updates**, not the failure path for create. Fix: write the lifecycle PENDING→SUBMITTED→FILLED without tying SSE to errors.
+- [ ] **TODO: Batch partial success** — Contracts file has `unresolvedSymbols`; your narrative didn’t own it. Gap: batch GET should usually `200` with per-symbol success/fail, not all-or-nothing `404`. Fix: specify response shape for 3 valid + 2 bad symbols.
+- [ ] **TODO: IDOR / userId in the path** — Prompt’s `viewAllOrders(userId)` tempts `GET /users/{userId}/orders`. Gap: client apps must scope from the token (`GET /orders` or `/me/orders`); cross-user order fetch → **404** (not 403) to avoid enumeration. Fix: write client vs admin routes and why.
+- [ ] **TODO: Money as DecimalString** — Types already avoid float; confirm you can explain *why* IEEE-754 fails for prices and how the JSON schema looks (`"185.50"` or integer cents).
+- [ ] **TODO: Fill Steps 1–6 yourself** — Type every `[YOUR ANSWER]` and Step 6 reflection from scratch (no paste from the coached Formation submit). Then spot-check against `trading_api_contract.ts` only after you’re done.
+- [ ] **TODO: Re-submit on Formation solo** — When the blocks above are checked from *your* typing, submit a fresh answer on formation.dev without coach paste; that’s the real pass.
