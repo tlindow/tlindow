@@ -1,101 +1,89 @@
 <div align="center">
-  <a href="https://tlindow.github.io/">
+  <a href="https://lindowlabs.dev/">
     <img src="./assets/lindow-labs-icon.svg" alt="Lindow Labs" width="72" height="72" />
   </a>
   <h1>Lindow Labs</h1>
-  <p><strong>Tyler Lindow (@tlindow)</strong> · Engineering Management</p>
+  <p><strong>Tyler Lindow (@tlindow)</strong> · Engineering Manager, Applied AI · Founder of Tinker</p>
 
   <p>
-    <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Marketing%20site-tlindow.github.io-C084FC?style=flat-square&logo=google-chrome&logoColor=white" alt="Marketing site" /></a>
+    <a href="https://lindowlabs.dev/"><img src="https://img.shields.io/badge/Site-lindowlabs.dev-4F46E5?style=flat-square&logo=google-chrome&logoColor=white" alt="lindowlabs.dev" /></a>
     <a href="https://www.linkedin.com/in/tlindow/"><img src="https://img.shields.io/badge/LinkedIn-Tyler%20Lindow-FACC15?style=flat-square&logo=linkedin&logoColor=000" alt="LinkedIn" /></a>
+    <a href="https://github.com/lindow-labs"><img src="https://img.shields.io/badge/Org-lindow--labs-2D5A3D?style=flat-square&logo=github&logoColor=white" alt="lindow-labs org" /></a>
     <a href="./exercises/README.md"><img src="https://img.shields.io/badge/Technical%20Labs-exercises%2F-4ADE80?style=flat-square&logo=git&logoColor=000" alt="Technical Labs" /></a>
-    <a href="https://tlindow.github.io/"><img src="https://img.shields.io/badge/Role-Engineering%20Management-C084FC?style=flat-square" alt="Role" /></a>
-    <img src="https://img.shields.io/badge/Typing%20Coverage-11.03%25%20PASS%20(%E2%89%A510%25)-10B981?style=flat-square" alt="Typing Coverage 11.03% PASS" />
+    <img src="https://img.shields.io/badge/Typing%20Coverage-10.77%25%20PASS%20(%E2%89%A510%25)-10B981?style=flat-square" alt="Typing Coverage 10.77% PASS" />
   </p>
 </div>
 
 <!-- coverage-bar:start -->
 ```text
-█████████░ 88.97% AI · 11.03% hand
+█████████░ 89.23% AI · 10.77% hand
 ```
 <!-- coverage-bar:end -->
 <sub>Generated from the typing-coverage linter. Regenerate with <code>make coverage-bar</code>.</sub>
 
 ---
 
-### 👤 Identity & Context
+### 👤 Now
 
-- **Role:** Engineering Management
-- **Status:** Active · Open to Engineering Leadership & Architecture
-- **Location:** San Diego, CA 📍 &rarr; Seattle, WA 🌲
-- **Pronouns:** he/him/tyler
+- **Role:** Engineering manager who makes software reliable in production. Founder of Tinker at Lindow Labs.
+- **Looking for:** Engineering manager roles in applied AI and fintech, especially forward deployed and solutions engineering teams.
+- **Location:** San Diego, CA 📍 · Open to Seattle, SF, LA, NY and Portland
+- **Pronouns:** he/him
 - **Supports:** 🏳️‍🌈 LGBTQ+ · 👩 Women in Tech · ✊🏾 BIPOC · ♿ Differently Abled
 
 ---
 
-### 🎯 Deepen
+### 🛠️ Building: Tinker
 
-**Engineering management craft, and the labs that practice it.**  
-Start at the [marketing site](https://tlindow.github.io/). This profile is the next step: how that craft is led, and personal system-design labs to type through.
+Tinker collects the prompts people write across their AI tools in one place and measures how their understanding changes.
 
-- **Marketing site:** [tlindow.github.io](https://tlindow.github.io/)
-- **Network:** [linkedin.com/in/tlindow](https://www.linkedin.com/in/tlindow/)
-- **Labs:** [`exercises/README.md`](./exercises/README.md)
+- Live on web, Mac and iOS (TestFlight), with Anthropic API tool-use chat over lesson code.
+- Its own MCP server plus a Claude Code capture hook feed one reviewable prompt history, with pause and delete controls. Prompt collection launched in beta on Nov 8, 2026.
+- Evals set the direction: a single-interaction learner model scored 55.8% on 2,303 cases from a public student dataset, about level with Bayesian Knowledge Tracing and behind stronger baselines, so Tinker was rebuilt as an agent evaluated on tool-call traces across sequences of prompts.
+
+Code lives in the [lindow-labs](https://github.com/lindow-labs) org.
 
 ---
 
-### 🧠 Core Architectural Philosophy
+### 📈 Before Tinker: Affirm (2019 to 2026)
 
-1. **System Architecture as Sculpting**  
-   Top-down AI generation; human craftsmanship meticulously chips away excess logic to construct sustainable, resilient distributed architectures.
+Grew and led teams of up to 9 engineers across Affirm's merchant and partner platforms.
 
-2. **Domain-Driven Reliability**  
-   Architectural choices must anchor to core business value. Mediated platform re-architecture at Affirm to enforce strict domain separation: groundwork toward a 99.99% availability target.
+- Raised Merchant Portal availability from ~99.7% to 99.9% in Q4 2025, with zero Black Friday / Cyber Monday incidents.
+- Cut outage detection at higher-transaction merchants from ~1 hour to under 5 minutes with per-merchant dashboards and alerting.
+- Unblocked Affirm's launch as QuickBooks Payments' exclusive pay-over-time partner; my team shipped 3 production fixes and the partnership ramped in Q1 2026.
 
-3. **First-Principles GenAI Upskilling**  
-   "Learning-by-doing" pedagogy to debunk misconceptions and systematically de-risk catastrophic production failure modes.
+---
 
+### 🧠 How I work
+
+1. **Reliability anchored to the business.** Clear data ownership and domain boundaries, then observability, alerting and on-call that catch problems before customers do.
+2. **Evals over opinions.** Measure against real baselines and let the results decide what gets built next.
+3. **Capture the why.** Decisions, trade-offs and context belong next to the code, so the next engineer (or agent) inherits the reasoning and not just the diff.
 4. **The Embodiment Axiom**  
    > *"As software engineers, typing IS learning. When we type, we embody the code, the software. If we outsource our typing, we outsource our learning."*  
    *Enforced via pre-commit linter ([`scripts/check_typing_coverage.py`](./scripts/check_typing_coverage.py)): commits fail if hand-typed coverage drops below 10%.*
 
 ---
 
-### 📐 Agent Topology (Tri-Agent Architecture)
+### 🧪 Technical Labs (`exercises/`)
 
-- 👑 **The Engineering Manager** (`me / README.md`)  
-  *Altitude: High* · People & Systems Leadership, Architecture Vision, Conceptual Translation, Culture 🏳️‍🌈
-- 🧠 **The Coaching Agent** ([`exercises/outer-loop.md`](./exercises/outer-loop.md))  
-  *Altitude: Macro* · 4-Step System Design Framework, Defensible Trade-offs · Asynchronous post-push critique via GitHub Copilot on PRs
-- ⚡ **The Builder** ([`exercises/inner-loop.md`](./exercises/inner-loop.md))  
-  *Altitude: Micro* · Hands-on pairing partner, syntax/types, typing close-to-metal · Never writes the fix directly; keeps the human typing
+Personal system-design and craft labs. Practice, not production work.
 
----
-
-### 🧪 Active Technical Labs (`exercises/`)
-
-Personal system-design and craft learning labs. This directory is practice, not Affirm production work.
-
-- [`proto-learning/`](./exercises/proto-learning/) — Protobuf & gRPC B2B settlements, precision money, streaming RPCs
-- [`nextjs-learning/`](./exercises/nextjs-learning/) — Next.js App Router streaming ledger, RSC boundaries, server actions
-- [`realtime-deal-room/`](./exercises/realtime-deal-room/) — Polling vs. SSE vs. WebSockets for live syndicated deal rooms
-- [`rest-api-trading/`](./exercises/rest-api-trading/) — REST stock trading APIs, idempotency keys, IDOR security prevention
+- [`proto-learning/`](./exercises/proto-learning/): Protobuf & gRPC B2B settlements, precision money, streaming RPCs
+- [`nextjs-learning/`](./exercises/nextjs-learning/): Next.js App Router streaming ledger, RSC boundaries, server actions
+- [`realtime-deal-room/`](./exercises/realtime-deal-room/): Polling vs. SSE vs. WebSockets for live syndicated deal rooms
+- [`rest-api-trading/`](./exercises/rest-api-trading/): REST stock trading APIs, idempotency keys, IDOR security prevention
 
 ---
 
 ### 💭 Opinions
 
 ```bash
-# ┌─ [tyler@macbook-pro:~] ────────────────────────────────────────────────────────┐
-# │ $ cat ~/.opinions.env                                                         │
-# └───────────────────────────────────────────────────────────────────────────────┘
-
-export WORKFLOW="Mac + Cursor (high-velocity coding on-the-go)"
-export CLOUD_AI="Google Colab • Gemini • Antigravity • PyTorch experiments"
-export HOSTING="Vercel (docs actually have an end... AWS 👀)"
-export FRONTEND="Next.js (love-hate: opinionated, but gets it done) • React"
-export DATA_WAREHOUSE="Snowflake (enterprise corporate analytical backbone)"
-export LANGUAGES="JavaScript / Node.js by eye • Python / Flask by craft"
+export WORKFLOW="Mac + Cursor + Claude Code"
+export AI="Anthropic API • MCP • evals before features"
+export HOSTING="Vercel"
+export FRONTEND="Next.js • React • TypeScript"
+export DATA_WAREHOUSE="Snowflake"
 export COMMUNITY="Luma > Meetup"
 ```
-
